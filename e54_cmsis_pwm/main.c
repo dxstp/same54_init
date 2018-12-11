@@ -21,14 +21,14 @@
     SOFTWARE.
  */
 
-#include <stdint.h>
-
-#include "same54.h"
+#include <sam.h>
+#include <stdio.h>
 #include "my_init/oscctrl.h"
 #include "my_init/gclk.h"
 #include "my_init/dpll.h"
 #include "my_init/gpio.h"
 #include "my_init/pwm.h"
+#include "my_init/uart.h"
 
 
 // this examples is designed for the ATSAM E54 Xplained Pro board.
@@ -46,23 +46,37 @@ int main(void)
 	init_oscctrl();
 	
 	// connect GCLK0 to DPLL0 (120 MHz)
-	// connect GCLK1 to DPLL1 (200 MHz), divide by 200
-	// connect GCLK2 to DPLL1 (200 MHz), divide by 2
+	// connect GCLK1 to DPLL1 (200 MHz), divide by 200 => 1 MHz for Pin Output (to check clock)
+	// connect GCLK2 to DPLL1 (200 MHz), divide by 2 => 100 MHz for PWM
+	// connect GCLK3 to XOSC1 (12 MHz) => 12 MHz for SERCOM core
+	// connect GCLK4 to XOSC32K (32.768 kHz) => for RTC and SERCOM slow
 	init_gclk();
+	
+	// init the UART module to 115200 baud, 8N1
+	init_uart();
+	
+	// init the GPIO module to output GLCK1
+	// PWM from TC7, WO0 and WO1
+	// RX = PB24, TX = PB25 (for Xplained Board)
+	init_gpio();
+	
+	printf("-- SAME54 Xplained Pro boot example --\r\n");
+	printf("-- OSCCTRL initialized.\r\n");
+	printf("-- GCLK initialized.\r\n");
+	printf("-- GPIO initialized.\r\n");
 	
 	// init DPLL0 and DPLL1
 	// clock input is XOSC1, which will by divided by 4 beforehand
 	// maximum clock input frequency is 3 MHz
 	init_dpll();
-	
-	// init the GPIO module to ouput GLCK1
-	// and PWM from TC7, WO0 and WO1
-	init_gpio();
+	printf("-- DPLL initialized.\r\n");
+
 	
 	// init the PWM module to generate two 16-bit PWMs
 	init_pwm();
+	printf("-- PWM initialized.\r\n");
 	
-	
+
 	/* Replace with your application code */
 	while (1) {
 		__NOP();

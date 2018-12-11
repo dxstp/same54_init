@@ -5,7 +5,7 @@
  *  Author: M19931
  */ 
 
-#include "same54.h"
+#include <sam.h>
 #include "pwm.h"
 
 
@@ -15,7 +15,7 @@ void init_pwm(void) {
 	MCLK->APBDMASK.reg |= MCLK_APBDMASK_TC7;
 	
 	// connect GLCK with TC7 module
-	GCLK->PCHCTRL[TC7_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK2_Val | (1 << GCLK_PCHCTRL_CHEN_Pos); 
+	GCLK->PCHCTRL[TC7_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK2 | (1 << GCLK_PCHCTRL_CHEN_Pos); 
 	
 	// do a software reset of the module (write-synchronized)
 	TC7->COUNT16.CTRLA.reg = TC_CTRLA_SWRST;

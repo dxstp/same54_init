@@ -198,6 +198,15 @@
     <Compile Include="my_init\pwm.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils_syscalls.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Device_Startup\" />

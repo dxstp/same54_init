@@ -5,7 +5,7 @@
  *  Author: M19931
  */ 
 
-#include "same54.h"
+#include <sam.h>
 #include "dpll.h"
 
 void init_dpll(void) {

@@ -5,7 +5,7 @@
  *  Author: M19931
  */ 
 
-#include "same54.h"
+#include <sam.h>
 #include "gclk.h"
 
 void init_gclk(void) {
@@ -29,4 +29,17 @@ void init_gclk(void) {
 	GCLK_GENCTRL_DIV(2)
 	| (1 << GCLK_GENCTRL_GENEN_Pos)
 	| GCLK_GENCTRL_SRC_DPLL1;
+
+	// GLCK3: source is XOSC1
+	// for SERCOM
+	GCLK->GENCTRL[3].reg =
+	GCLK_GENCTRL_DIV(1)
+	| (1 << GCLK_GENCTRL_GENEN_Pos)
+	| GCLK_GENCTRL_SRC_XOSC1;
+
+	//GCLK4: source is 32K
+	GCLK->GENCTRL[4].reg = 
+	GCLK_GENCTRL_DIV(1)
+	| (1 << GCLK_GENCTRL_GENEN_Pos)
+	| GCLK_GENCTRL_SRC_XOSC32K;
 }
