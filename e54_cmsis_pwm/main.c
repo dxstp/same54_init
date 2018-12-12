@@ -60,21 +60,22 @@ int main(void)
 	// RX = PB24, TX = PB25 (for Xplained Board)
 	init_gpio();
 	
-	printf("-- SAME54 Xplained Pro boot example --\r\n");
-	printf("-- OSCCTRL initialized.\r\n");
-	printf("-- GCLK initialized.\r\n");
-	printf("-- GPIO initialized.\r\n");
+	printf("\r\n-- SAME54 Xplained Pro boot example --\r\n");
+    printf("Build "__TIME__" at "__DATE__"\r\n");
+	printf("OSCCTRL initialized.\r\n");
+	printf("GCLK initialized.\r\n");
+	printf("GPIO initialized.\r\n");
 	
 	// init DPLL0 and DPLL1
 	// clock input is XOSC1, which will by divided by 4 beforehand
 	// maximum clock input frequency is 3 MHz
 	init_dpll();
-	printf("-- DPLL initialized.\r\n");
+	printf("DPLL initialized.\r\n");
 
 	
 	// init the PWM module to generate two 16-bit PWMs
 	init_pwm();
-	printf("-- PWM initialized.\r\n");
+	printf("PWM initialized.\r\n");
 	
 
 	/* Replace with your application code */
