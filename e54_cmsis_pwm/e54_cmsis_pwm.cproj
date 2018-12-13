@@ -192,6 +192,12 @@
     <Compile Include="my_init\oscctrl.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\pm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\pm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\pwm.c">
       <SubType>compile</SubType>
     </Compile>
@@ -202,6 +208,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\supc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\supc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\uart.c">

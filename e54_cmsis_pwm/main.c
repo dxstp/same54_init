@@ -30,6 +30,8 @@
 #include "my_init/pwm.h"
 #include "my_init/uart.h"
 #include "my_init/rtc.h"
+#include "my_init/supc.h"
+#include "my_init/pm.h"
 
 
 // this examples is designed for the ATSAM E54 Xplained Pro board.
@@ -66,9 +68,15 @@ int main(void) {
 	init_rtc();
 	init_dpll();
 	init_pwm();
+	init_supc();
+	init_pm();
 
-	/* Replace with your application code */
+	printf("\r\n-- Finished initialization, starting app.\r\n");
+
 	while (1) {
+		printf("Going into standby now, RTC counter = %010u.\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
+		__WFI();
+		printf("Woke up from standby,   RTC counter = %010u.\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
 		__NOP();
 	}
 }
