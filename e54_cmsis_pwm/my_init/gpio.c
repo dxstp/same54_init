@@ -16,7 +16,6 @@
 
 enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
 
-
 void init_gpio(void) {
 	
 	// set GLCK1 output

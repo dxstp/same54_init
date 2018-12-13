@@ -6,54 +6,36 @@
  */ 
 
 #include <sam.h>
+#include <stdio.h>
 #include "dpll.h"
 
 void init_dpll(void) {
-	// FDPLL0: ref is XOSC1 (0x03), divided by 4 (max input is 3.2 MHz!)
-	// divider is fosc/(2 × (DIV + 1)) -> DIV is 1
-	// Multiplier is 40 (3*40 = 120) -> LDR is 39
-	// for main clock
+	
+	// ****** DPLL0 ****** //
+	// divide XOSC1 clock (12 MHz) by 4 (max input is 3.2 MHz!)
+	OSCCTRL->Dpll[0].DPLLCTRLB.reg = OSCCTRL_DPLLCTRLB_DIV(1) | OSCCTRL_DPLLCTRLB_REFCLK(0x03);
+	printf("DPLL0   -- set reference to XOSC1 and divide by 4.\r\n");
+	
+	// this register is write-synchronized, wait for syncbusy to clear
 	OSCCTRL->Dpll[0].DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(39);
+	while(OSCCTRL->Dpll[0].DPLLSYNCBUSY.bit.DPLLRATIO);
+	printf("DPLL0   -- set multiplier to 40.\r\n");
 	
-	// this register is write-synchronized, wait until the
-	// corresponding syncbusy bit clears
-	while(OSCCTRL->Dpll[0].DPLLSYNCBUSY.reg & OSCCTRL_DPLLSYNCBUSY_MASK);
+	OSCCTRL->Dpll[0].DPLLCTRLA.reg = OSCCTRL_DPLLCTRLA_ENABLE;
+	while(OSCCTRL->Dpll[0].DPLLSYNCBUSY.bit.ENABLE);
+	while(!(OSCCTRL->Dpll[0].DPLLSTATUS.bit.LOCK || OSCCTRL->Dpll[0].DPLLSTATUS.bit.CLKRDY));
+	printf("DPLL0   -- enable DPLL0 and wait for lock.\r\n");
 	
-	// divide XOSC clock by 4
-	OSCCTRL->Dpll[0].DPLLCTRLB.reg =
-	OSCCTRL_DPLLCTRLB_DIV(1)
-	| OSCCTRL_DPLLCTRLB_REFCLK(0x03);
+	// ****** DPLL1 ****** //
+	OSCCTRL->Dpll[1].DPLLCTRLB.reg = OSCCTRL_DPLLCTRLB_DIV(2) | OSCCTRL_DPLLCTRLB_REFCLK(0x03);
+	printf("DPLL1   -- set reference to XOSC1 and divide by 6.\r\n");
 	
-	OSCCTRL->Dpll[0].DPLLCTRLA.reg = 1 << OSCCTRL_DPLLCTRLA_ENABLE_Pos;
-	
-	while(OSCCTRL->Dpll[0].DPLLSYNCBUSY.reg & OSCCTRL_DPLLSYNCBUSY_MASK);
-
-	// wait for PLL to lock
-	while(!(
-		   ((OSCCTRL->Dpll[0].DPLLSTATUS.reg & OSCCTRL_DPLLSTATUS_LOCK) >> OSCCTRL_DPLLSTATUS_LOCK_Pos)
-		|| ((OSCCTRL->Dpll[0].DPLLSTATUS.reg & OSCCTRL_DPLLSTATUS_CLKRDY) >> OSCCTRL_DPLLSTATUS_CLKRDY_Pos)
-		));
-	
-	
-	// FDPLL1: ref is XOSC1 (0x03), divided by 6 (max input is 3.2 MHz!)
-	// divider is fosc/(2 × (DIV + 1)) -> DIV is 2
-	// Multiplier is 100 (2*100 = 200) -> LDR is 99
-	// for peripherals (will be divided down as needed)
 	OSCCTRL->Dpll[1].DPLLRATIO.reg = OSCCTRL_DPLLRATIO_LDR(99);
+	while(OSCCTRL->Dpll[1].DPLLSYNCBUSY.bit.DPLLRATIO);
+	printf("DPLL1   -- set multiplier to 100.\r\n");
 	
-	while(OSCCTRL->Dpll[1].DPLLSYNCBUSY.reg & OSCCTRL_DPLLSYNCBUSY_MASK);
-	
-	OSCCTRL->Dpll[1].DPLLCTRLB.reg =
-	OSCCTRL_DPLLCTRLB_DIV(2)
-	| OSCCTRL_DPLLCTRLB_REFCLK(0x03);
-	
-	OSCCTRL->Dpll[1].DPLLCTRLA.reg = 1 << OSCCTRL_DPLLCTRLA_ENABLE_Pos;
-	
-	while(OSCCTRL->Dpll[1].DPLLSYNCBUSY.reg & OSCCTRL_DPLLSYNCBUSY_MASK);
-
-	// wait for PLL to lock
-	while(!(
-		   ((OSCCTRL->Dpll[1].DPLLSTATUS.reg & OSCCTRL_DPLLSTATUS_LOCK) >> OSCCTRL_DPLLSTATUS_LOCK_Pos)
-		|| ((OSCCTRL->Dpll[1].DPLLSTATUS.reg & OSCCTRL_DPLLSTATUS_CLKRDY) >> OSCCTRL_DPLLSTATUS_CLKRDY_Pos)
-		));
+	OSCCTRL->Dpll[1].DPLLCTRLA.reg = OSCCTRL_DPLLCTRLA_ENABLE;
+	while(OSCCTRL->Dpll[1].DPLLSYNCBUSY.bit.ENABLE);
+	while(!(OSCCTRL->Dpll[1].DPLLSTATUS.bit.LOCK || OSCCTRL->Dpll[1].DPLLSTATUS.bit.CLKRDY));
+	printf("DPLL0   -- enable DPLL1 and wait for lock.\r\n");
 }

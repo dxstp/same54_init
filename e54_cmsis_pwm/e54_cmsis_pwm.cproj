@@ -125,7 +125,6 @@
       <Value>%24(PackRepoDir)\Atmel\SAME54_DFP\1.0.87\include</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
-  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
   <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
   <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
@@ -140,6 +139,7 @@
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.memorysettings.ExternalRAM />
   <armgcc.linker.miscellaneous.LinkerFlags>-Tsame54p20a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
@@ -196,6 +196,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\pwm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\rtc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\uart.c">

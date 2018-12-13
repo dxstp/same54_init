@@ -29,11 +29,11 @@
 #include "my_init/gpio.h"
 #include "my_init/pwm.h"
 #include "my_init/uart.h"
+#include "my_init/rtc.h"
 
 
 // this examples is designed for the ATSAM E54 Xplained Pro board.
-int main(void)
-{
+int main(void) {
 	// if everything is left on default, the controller will start with the
 	// internal 48 MHz FDPLL0 oscillator, routed to GLCK0.
 	// GLCK0 will provide the clock for MCLK, which clocks the CPU, the bus
@@ -42,17 +42,8 @@ int main(void)
 	// some interfaces of modules must first be unmasked to be clocked by
 	// the synchronous bus clock.
 	
-	// init an external crystal oscillator to 12 MHz
 	init_oscctrl();
-	
-	// connect GCLK0 to DPLL0 (120 MHz)
-	// connect GCLK1 to DPLL1 (200 MHz), divide by 200 => 1 MHz for Pin Output (to check clock)
-	// connect GCLK2 to DPLL1 (200 MHz), divide by 2 => 100 MHz for PWM
-	// connect GCLK3 to XOSC1 (12 MHz) => 12 MHz for SERCOM core
-	// connect GCLK4 to XOSC32K (32.768 kHz) => for RTC and SERCOM slow
 	init_gclk();
-	
-	// init the UART module to 115200 baud, 8N1
 	init_uart();
 	
 	// init the GPIO module to output GLCK1
@@ -60,23 +51,21 @@ int main(void)
 	// RX = PB24, TX = PB25 (for Xplained Board)
 	init_gpio();
 	
+	// at this point the controller is able to output debug messages
 	printf("\r\n-- SAME54 Xplained Pro boot example --\r\n");
-    printf("Build "__TIME__" at "__DATE__"\r\n");
-	printf("OSCCTRL initialized.\r\n");
-	printf("GCLK initialized.\r\n");
-	printf("GPIO initialized.\r\n");
+    printf("Built "__TIME__" at "__DATE__"\r\n\r\n");
+	printf("OSCCTRL -- XOSC1 (12 MHz) running.\r\n");
+	printf("GCLK0   -- connected to DPLL0 (120 MHz).\r\n");
+	printf("GCLK1   -- connected to DPLL1 (200 MHz).\r\n");
+	printf("GCLK2   -- connected to DPLL1 (200 MHz), divider 200, output enabled (PB15).\r\n");
+	printf("GCLK3   -- connected to XOSC1 ( 12 MHz).\r\n");
+	printf("GCLK4   -- connected to OSCULP32K (32.768 kHz).\r\n");
+	printf("GPIO    -- configured PMUX for GCLK1, TC7 WO0 and WO1, UART RX and TX.\r\n");
+	printf("UART    -- initialized to 115200 baud, 8N1.\r\n");
 	
-	// init DPLL0 and DPLL1
-	// clock input is XOSC1, which will by divided by 4 beforehand
-	// maximum clock input frequency is 3 MHz
+	init_rtc();
 	init_dpll();
-	printf("DPLL initialized.\r\n");
-
-	
-	// init the PWM module to generate two 16-bit PWMs
 	init_pwm();
-	printf("PWM initialized.\r\n");
-	
 
 	/* Replace with your application code */
 	while (1) {

@@ -37,9 +37,9 @@ void init_gclk(void) {
 	| (1 << GCLK_GENCTRL_GENEN_Pos)
 	| GCLK_GENCTRL_SRC_XOSC1;
 
-	//GCLK4: source is 32K
+	//GCLK4: source is internal 32K
 	GCLK->GENCTRL[4].reg = 
 	GCLK_GENCTRL_DIV(1)
 	| (1 << GCLK_GENCTRL_GENEN_Pos)
-	| GCLK_GENCTRL_SRC_XOSC32K;
+	| GCLK_GENCTRL_SRC_OSCULP32K;
 }
