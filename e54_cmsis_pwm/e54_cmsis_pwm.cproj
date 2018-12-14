@@ -18,8 +18,8 @@
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
-    <CacheFlash>true</CacheFlash>
-    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <CacheFlash>false</CacheFlash>
+    <ProgFlashFromRam>false</ProgFlashFromRam>
     <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
@@ -184,6 +184,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\gpio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\irqs.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\irqs.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\oscctrl.c">

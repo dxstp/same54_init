@@ -21,6 +21,8 @@ extern "C" {
 #include <hal_io.h>
 #include <hal_sleep.h>
 
+#include <hal_ext_irq.h>
+
 /**
  * \brief Perform system initialization, initialize pins and clocks for
  * peripherals
