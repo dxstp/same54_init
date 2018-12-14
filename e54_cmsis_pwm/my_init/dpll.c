@@ -37,5 +37,5 @@ void init_dpll(void) {
 	OSCCTRL->Dpll[1].DPLLCTRLA.reg = OSCCTRL_DPLLCTRLA_ENABLE;
 	while(OSCCTRL->Dpll[1].DPLLSYNCBUSY.bit.ENABLE);
 	while(!(OSCCTRL->Dpll[1].DPLLSTATUS.bit.LOCK || OSCCTRL->Dpll[1].DPLLSTATUS.bit.CLKRDY));
-	printf("DPLL0   -- enable DPLL1 and wait for lock.\r\n");
+	printf("DPLL1   -- enable DPLL1 and wait for lock.\r\n");
 }
