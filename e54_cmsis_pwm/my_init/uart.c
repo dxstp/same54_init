@@ -10,9 +10,6 @@
 #include "uart.h"
 
 
-// in order to use printf, a couple of system calls have to be defined
-int __attribute__((weak)) _read(int file, char *ptr, int len); /* Remove GCC compiler warning */
-int __attribute__((weak)) _write(int file, char *ptr, int len); /* Remove GCC compiler warning */
 
 #define CONF_SERCOM_2_USART_BAUD_RATE 115200
 #define CONF_SERCOM_2_USART_BAUD_RATE_REGISTER_VAL (65536 - ((65536 * 16.0f * (CONF_SERCOM_2_USART_BAUD_RATE)) / 12000000))
@@ -80,7 +77,8 @@ int32_t stdio_io_read(uint8_t *const buf, const uint16_t length) {
 	return (int32_t)offset;
 }
 
-int __attribute__((weak)) _read(int file, char *ptr, int len) {
+
+int _read(int file, char *ptr, int len) {
 	int n = 0;
 
 	if (file != 0) {
@@ -95,7 +93,7 @@ int __attribute__((weak)) _read(int file, char *ptr, int len) {
 	return n;
 }
 
-int __attribute__((weak)) _write(int file, char *ptr, int len) {
+int _write(int file, char *ptr, int len) {
 	int n = 0;
 
 	if ((file != 1) && (file != 2) && (file != 3)) {
