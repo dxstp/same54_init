@@ -30,7 +30,7 @@
 /** 
  * init the SERCOM2 module to 115200 baud, 8N1
  */
-void sercom2_init(void) {
+void SERCOM2_init(void) {
 
 	// unmask SERCOM2 in MCLK to enable clock to user interface
 	MCLK->APBBMASK.reg |= MCLK_APBBMASK_SERCOM2;
@@ -64,7 +64,7 @@ void sercom2_init(void) {
 
 }
 
-int32_t sercom2_write(const char *const buf, const uint32_t length) {
+int32_t SERCOM2_write(const char *const buf, const uint32_t length) {
 	uint32_t offset = 0;
 	
 	while(!(SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_DRE));
@@ -79,7 +79,7 @@ int32_t sercom2_write(const char *const buf, const uint32_t length) {
 	return (int32_t)offset;
 }
 
-int32_t sercom2_read(char *const buf, const uint32_t length) {
+int32_t SERCOM2_read(char *const buf, const uint32_t length) {
 	uint32_t offset = 0;
 	
 	do {
@@ -90,7 +90,7 @@ int32_t sercom2_read(char *const buf, const uint32_t length) {
 	return (int32_t)offset;
 }
 
-int32_t sercom2_IsDataAvailable(void)
+int32_t SERCOM2_IsDataAvailable(void)
 {
 	return (SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_RXC) ? 1 : 0;
 }

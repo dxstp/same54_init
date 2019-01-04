@@ -32,11 +32,11 @@
 #define CONF_SERCOM_2_USART_BAUD_RATE_REGISTER_VAL \
 	(65536 - ((65536 * 16.0f * (CONF_SERCOM_2_USART_BAUD_RATE)) / 12000000))
 
-void sercom2_init(void);
+void SERCOM2_init(void);
 
-int32_t sercom2_read(char *const buf, const uint32_t length);
-int32_t sercom2_write(const char *const buf, const uint32_t length);
-int32_t sercom2_IsDataAvailable(void);
+int32_t SERCOM2_read(char *const buf, const uint32_t length);
+int32_t SERCOM2_write(const char *const buf, const uint32_t length);
+int32_t SERCOM2_IsDataAvailable(void);
 
 
 #endif /* SERCOM_H_ */

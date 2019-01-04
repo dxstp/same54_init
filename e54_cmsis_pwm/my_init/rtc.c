@@ -28,7 +28,10 @@
 #include <stdio.h>
 #include "rtc.h"
 
-void rtc_init(void) {
+/** 
+ * init the RTC module to generate an interrupt every 1s.
+ */
+void RTC_init(void) {
 
 	OSC32KCTRL->RTCCTRL.reg = OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K;
 	printf("OSC32K  -- select internal 32kHz oscillator as source.\r\n");

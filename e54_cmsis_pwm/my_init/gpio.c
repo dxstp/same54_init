@@ -34,7 +34,12 @@
 
 enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
 
-void gpio_init(void) {
+/**
+ * init the GPIO module to output GLCK1
+ * PWM from TC7, WO0 and WO1
+ * RX = PB24, TX = PB25 (for Xplained Board) 
+ */
+void GPIO_init(void) {
 	
 	// set GLCK1 output
 	PORT->Group[GPIO_PORTB].WRCONFIG.reg =

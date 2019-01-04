@@ -26,9 +26,23 @@
 #include <sam.h>
 #include "oscctrl.h"
 
-// OSCCTRL: setup XOSC1 with 12 MHz
-// multiplier and current according to table 28-7
-void oscctrl_init(void) {
+/**
+ * OSCCTRL: setup XOSC1 with 12 MHz
+ * multiplier and current according to table 28-7  
+ * start external 32k crystal
+ * set RTC to external 32k crystal
+ * 
+ * if everything is left on default, the controller will start with the
+ * internal 48 MHz FDPLL0 oscillator, routed to GLCK0.
+ * GLCK0 will provide the clock for MCLK, which clocks the CPU, the bus
+ * and the modules connected to the bus.
+ * However, some peripherals need a separate asynchronous clock and
+ * some interfaces of modules must first be unmasked to be clocked by
+ * the synchronous bus clock.
+ * 
+ * init an external crystal oscillator to 12 MHz
+ */
+void OSCCTRL_init(void) {
 	OSCCTRL->XOSCCTRL[1].reg =
 		  OSCCTRL_XOSCCTRL_IMULT(4)
 		| OSCCTRL_XOSCCTRL_IPTAT(3)

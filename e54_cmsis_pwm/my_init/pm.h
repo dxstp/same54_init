@@ -27,7 +27,7 @@
 #ifndef PM_H_
 #define PM_H_
 
-void pm_init(void);
+void PM_init(void);
 
 
 

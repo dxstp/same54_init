@@ -23,6 +23,10 @@
  */
 // DOM-IGNORE-END
 
+/**
+ *   https://github.com/dxstp/same54_init
+ */
+
 #include <sam.h>
 #include <stdio.h>
 #include "my_init/oscctrl.h"
@@ -38,7 +42,9 @@
 #include "utils/print.h"
 
 
-// this examples is designed for the ATSAM E54 Xplained Pro board.
+/** 
+ * this examples is designed for the ATSAM E54 Xplained Pro board.
+ */
 int main(void) {
 	// if everything is left on default, the controller will start with the
 	// internal 48 MHz FDPLL0 oscillator, routed to GLCK0.
@@ -48,15 +54,15 @@ int main(void) {
 	// some interfaces of modules must first be unmasked to be clocked by
 	// the synchronous bus clock.
 	
-	oscctrl_init();
-	gclk_init();
-	sercom2_init();
+	OSCCTRL_init();
+	GCLK_init();
+	SERCOM2_init();
 	print_init();
 	
 	// init the GPIO module to output GLCK1
 	// PWM from TC7, WO0 and WO1
 	// RX = PB24, TX = PB25 (for Xplained Board)
-	gpio_init();
+	GPIO_init();
 	
 	// at this point the controller is able to output debug messages
 	printf("\r\n-- SAME54 Xplained Pro boot example --\r\n");
@@ -70,12 +76,12 @@ int main(void) {
 	printf("GPIO    -- configured PMUX for GCLK1, TC7 WO0 and WO1, UART RX and TX.\r\n");
 	printf("UART    -- initialized to 115200 baud, 8N1.\r\n");
 	
-	rtc_init();
-	dpll_init();
-	pwm_init();
-	supc_init();
-	pm_init();
-	irq_init();
+	RTC_init();
+	DPLL_init();
+	PWM_init();
+	SUPC_init();
+	PM_init();
+	IRQ_init();
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
 

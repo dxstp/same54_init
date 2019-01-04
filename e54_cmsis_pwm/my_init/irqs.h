@@ -27,7 +27,7 @@
 #ifndef IRQS_H_
 #define IRQS_H_
 
-void irq_init(void);
+void IRQ_init(void);
 
 
 

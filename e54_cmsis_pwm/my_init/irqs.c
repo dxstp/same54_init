@@ -27,7 +27,7 @@
 #include <stdio.h>
 #include "irqs.h"
 
-void irq_init(void) {
+void IRQ_init(void) {
 	NVIC_SetPriority(RTC_IRQn, 3);
 	printf("IRQ     -- set RTC_IRQ to priority 3.\r\n");
 	NVIC_EnableIRQ(RTC_IRQn);

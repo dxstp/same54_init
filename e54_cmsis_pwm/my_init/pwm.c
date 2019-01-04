@@ -27,8 +27,10 @@
 #include <stdio.h>
 #include "pwm.h"
 
-
-void pwm_init(void) {
+/** 
+ * init the PWM module to generate two 16-bit PWMs
+ */
+void PWM_init(void) {
 	MCLK->APBDMASK.reg |= MCLK_APBDMASK_TC7;
 	printf("PWM     -- unmask TC7 to enable interface on APBD.\r\n");
 

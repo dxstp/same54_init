@@ -26,7 +26,14 @@
 #include <sam.h>
 #include "gclk.h"
 
-void gclk_init(void) {
+/**
+ * connect GCLK0 to DPLL0 (120 MHz)
+ * connect GCLK1 to DPLL1 (200 MHz), divide by 200 => 1 MHz for Pin Output (to check clock)
+ * connect GCLK2 to DPLL1 (200 MHz), divide by 2 => 100 MHz for PWM
+ * connect GCLK3 to XOSC1 (12 MHz) => 12 MHz for SERCOM core
+ * connect GCLK4 to XOSC32K (32.768 kHz) => for RTC and SERCOM slow
+ */
+void GCLK_init(void) {
 	// GCLK0: source is FDPLL0, no divisor
 	// for main clock
 	GCLK->GENCTRL[0].reg =

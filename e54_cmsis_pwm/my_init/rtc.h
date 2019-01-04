@@ -28,7 +28,7 @@
 #define RTC_H_
 
 
-void rtc_init(void);
+void RTC_init(void);
 
 
 #endif /* RTC_H_ */
