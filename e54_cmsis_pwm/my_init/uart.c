@@ -30,7 +30,7 @@
 #define CONF_SERCOM_2_USART_BAUD_RATE 115200
 #define CONF_SERCOM_2_USART_BAUD_RATE_REGISTER_VAL (65536 - ((65536 * 16.0f * (CONF_SERCOM_2_USART_BAUD_RATE)) / 12000000))
 
-void init_uart(void) {
+void uart_init(void) {
 
 	// unmask SERCOM2 in MCLK to enable clock to user interface
 	MCLK->APBBMASK.reg |= MCLK_APBBMASK_SERCOM2;

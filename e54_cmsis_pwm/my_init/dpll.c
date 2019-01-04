@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "dpll.h"
 
-void init_dpll(void) {
+void dpll_init(void) {
 	
 	// ****** DPLL0 ****** //
 	// divide XOSC1 clock (12 MHz) by 4 (max input is 3.2 MHz!)

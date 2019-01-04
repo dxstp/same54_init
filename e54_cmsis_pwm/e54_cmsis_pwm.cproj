@@ -228,6 +228,9 @@
     <Compile Include="my_init\uart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="utils\print.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="utils_syscalls.c">
       <SubType>compile</SubType>
     </Compile>
@@ -235,6 +238,7 @@
   <ItemGroup>
     <Folder Include="Device_Startup\" />
     <Folder Include="my_init" />
+    <Folder Include="utils" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Device_Startup\same54p20a_flash.ld">

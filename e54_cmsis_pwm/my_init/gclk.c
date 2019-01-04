@@ -24,7 +24,7 @@
 #include <sam.h>
 #include "gclk.h"
 
-void init_gclk(void) {
+void gclk_init(void) {
 	// GCLK0: source is FDPLL0, no divisor
 	// for main clock
 	GCLK->GENCTRL[0].reg =

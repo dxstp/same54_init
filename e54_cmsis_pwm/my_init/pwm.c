@@ -26,7 +26,7 @@
 #include "pwm.h"
 
 
-void init_pwm(void) {
+void pwm_init(void) {
 	MCLK->APBDMASK.reg |= MCLK_APBDMASK_TC7;
 	printf("PWM     -- unmask TC7 to enable interface on APBD.\r\n");
 

@@ -25,7 +25,7 @@
 #ifndef DPLL_H_
 #define DPLL_H_
 
-void init_dpll(void);
+void dpll_init(void);
 
 
 

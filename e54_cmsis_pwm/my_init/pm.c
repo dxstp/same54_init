@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "pm.h"
 
-void init_pm(void) {
+void pm_init(void) {
 	PM->SLEEPCFG.bit.SLEEPMODE = PM_SLEEPCFG_SLEEPMODE_STANDBY;
 	printf("PM      -- configured sleep mode to STANDBY.\r\n");
 	

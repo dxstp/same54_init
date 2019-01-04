@@ -25,7 +25,7 @@
 #ifndef OSCCTRL_H_
 #define OSCCTRL_H_
 
-void init_oscctrl(void);
+void oscctrl_init(void);
 
 
 

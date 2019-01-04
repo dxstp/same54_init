@@ -10,7 +10,7 @@
 
 // OSCCTRL: setup XOSC1 with 12 MHz
 // multiplier and current according to table 28-7
-void init_oscctrl(void) {
+void oscctrl_init(void) {
 	OSCCTRL->XOSCCTRL[1].reg =
 		  OSCCTRL_XOSCCTRL_IMULT(4)
 		| OSCCTRL_XOSCCTRL_IPTAT(3)

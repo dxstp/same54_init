@@ -32,7 +32,7 @@
 
 enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
 
-void init_gpio(void) {
+void gpio_init(void) {
 	
 	// set GLCK1 output
 	PORT->Group[GPIO_PORTB].WRCONFIG.reg =

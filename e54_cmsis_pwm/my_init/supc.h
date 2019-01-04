@@ -25,7 +25,7 @@
 #ifndef SUPC_H_
 #define SUPC_H_
 
-void init_supc(void);
+void supc_init(void);
 
 
 

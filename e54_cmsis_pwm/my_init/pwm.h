@@ -25,7 +25,7 @@
 #ifndef PWM_H_
 #define PWM_H_
 
-void init_pwm(void);
+void pwm_init(void);
 
 
 

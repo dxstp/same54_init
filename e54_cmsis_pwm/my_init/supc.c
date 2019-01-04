@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "supc.h"
 
-void init_supc(void) {
+void supc_init(void) {
 	SUPC->VREG.bit.SEL = 1;
 	printf("SUPC    -- activated buck regulator for VDDCORE.\r\n");
 }

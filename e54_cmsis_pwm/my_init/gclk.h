@@ -25,7 +25,7 @@
 #ifndef GCLK_H_
 #define GCLK_H_
 
-void init_gclk(void);
+void gclk_init(void);
 
 
 
