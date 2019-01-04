@@ -1,3 +1,4 @@
+// DOM-IGNORE-BEGIN
 /*
     (c) 2018 Microchip Technology Inc. and its subsidiaries. 
     
@@ -20,6 +21,7 @@
     OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
     SOFTWARE.
  */
+// DOM-IGNORE-END
 
 #include <sam.h>
 #include <stdio.h>
@@ -28,11 +30,12 @@
 #include "my_init/dpll.h"
 #include "my_init/gpio.h"
 #include "my_init/pwm.h"
-#include "my_init/uart.h"
+#include "my_init/sercom.h"
 #include "my_init/rtc.h"
 #include "my_init/supc.h"
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
+#include "utils/print.h"
 
 
 // this examples is designed for the ATSAM E54 Xplained Pro board.
@@ -47,7 +50,8 @@ int main(void) {
 	
 	oscctrl_init();
 	gclk_init();
-	uart_init();
+	sercom2_init();
+	print_init();
 	
 	// init the GPIO module to output GLCK1
 	// PWM from TC7, WO0 and WO1

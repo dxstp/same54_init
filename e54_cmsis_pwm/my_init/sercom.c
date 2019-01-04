@@ -25,14 +25,12 @@
 
 #include <sam.h>
 #include <stdio.h>
-#include "uart.h"
+#include "sercom.h"
 
-
-
-#define CONF_SERCOM_2_USART_BAUD_RATE 115200
-#define CONF_SERCOM_2_USART_BAUD_RATE_REGISTER_VAL (65536 - ((65536 * 16.0f * (CONF_SERCOM_2_USART_BAUD_RATE)) / 12000000))
-
-void uart_init(void) {
+/** 
+ * init the SERCOM2 module to 115200 baud, 8N1
+ */
+void sercom2_init(void) {
 
 	// unmask SERCOM2 in MCLK to enable clock to user interface
 	MCLK->APBBMASK.reg |= MCLK_APBBMASK_SERCOM2;
@@ -64,12 +62,9 @@ void uart_init(void) {
 	SERCOM2->USART.CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
 	while(SERCOM2->USART.SYNCBUSY.reg & SERCOM_USART_SYNCBUSY_ENABLE);
 
-	// set STDIO to unbuffered
-	setbuf(stdout, NULL);
-	setbuf(stdin, NULL);
 }
 
-int32_t stdio_io_write(const uint8_t *const buf, const uint16_t length) {
+int32_t sercom2_write(const char *const buf, const uint32_t length) {
 	uint32_t offset = 0;
 	
 	while(!(SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_DRE));
@@ -84,7 +79,7 @@ int32_t stdio_io_write(const uint8_t *const buf, const uint16_t length) {
 	return (int32_t)offset;
 }
 
-int32_t stdio_io_read(uint8_t *const buf, const uint16_t length) {
+int32_t sercom2_read(char *const buf, const uint32_t length) {
 	uint32_t offset = 0;
 	
 	do {
@@ -95,33 +90,8 @@ int32_t stdio_io_read(uint8_t *const buf, const uint16_t length) {
 	return (int32_t)offset;
 }
 
-
-int _read(int file, char *ptr, int len) {
-	int n = 0;
-
-	if (file != 0) {
-		return -1;
-	}
-
-	n = stdio_io_read((uint8_t *)ptr, len);
-	if (n < 0) {
-		return -1;
-	}
-
-	return n;
+int32_t sercom2_IsDataAvailable(void)
+{
+	return (SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_RXC) ? 1 : 0;
 }
 
-int _write(int file, char *ptr, int len) {
-	int n = 0;
-
-	if ((file != 1) && (file != 2) && (file != 3)) {
-		return -1;
-	}
-
-	n = stdio_io_write((const uint8_t *)ptr, len);
-	if (n < 0) {
-		return -1;
-	}
-
-	return n;
-}

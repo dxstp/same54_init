@@ -24,14 +24,19 @@
 // DOM-IGNORE-END
 
 
-#ifndef UART_H_
-#define UART_H_
+#ifndef SERCOM_H_
+#define SERCOM_H_
 
-void uart_init(void);
-void mput(char c);
+#define CONF_SERCOM_2_USART_BAUD_RATE 115200
 
-int32_t stdio_io_read(uint8_t *const buf, const uint16_t length);
-int32_t stdio_io_write(const uint8_t *const buf, const uint16_t length);
+#define CONF_SERCOM_2_USART_BAUD_RATE_REGISTER_VAL \
+	(65536 - ((65536 * 16.0f * (CONF_SERCOM_2_USART_BAUD_RATE)) / 12000000))
+
+void sercom2_init(void);
+
+int32_t sercom2_read(char *const buf, const uint32_t length);
+int32_t sercom2_write(const char *const buf, const uint32_t length);
+int32_t sercom2_IsDataAvailable(void);
 
 
-#endif /* UART_H_ */
+#endif /* SERCOM_H_ */
