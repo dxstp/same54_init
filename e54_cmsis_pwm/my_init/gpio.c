@@ -1,3 +1,4 @@
+// DOM-IGNORE-BEGIN
 /*
     (c) 2018 Microchip Technology Inc. and its subsidiaries. 
     
@@ -20,6 +21,7 @@
     OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
     SOFTWARE.
  */
+// DOM-IGNORE-END
 
 #include <sam.h>
 #include "gpio.h"
