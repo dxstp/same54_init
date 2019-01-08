@@ -149,3 +149,9 @@ ipch/
 # Visual Studio 6 workspace options file
 
 *.opt
+
+
+# Doxygen
+
+doc/html/*
+!doc/html/doc.chm
