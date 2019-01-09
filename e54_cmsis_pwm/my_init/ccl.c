@@ -25,7 +25,6 @@
 
 
 #include <sam.h>
-#include <stdint.h>
 #include <stdio.h>
 #include "ccl.h"
 
@@ -36,13 +35,12 @@
  */
 void CCL_init(void) {
 
-	// unmask SERCOM2 in MCLK to enable clock to user interface
 	MCLK->APBCMASK.reg |= MCLK_APBCMASK_CCL;
+	printf("CCL     -- unmask CCL to enable interface on APBC.\r\n");
 	
-	// connect GLCK0 with CCL module (core and slow clock)
-	GCLK->PCHCTRL[CCL_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK0 | GCLK_PCHCTRL_CHEN;
+	GCLK->PCHCTRL[CCL_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK3 | GCLK_PCHCTRL_CHEN;
+	printf("CCL     -- connect GCLK3 to CCL.\r\n");
 	
-	// Set CCL[0] to invert input IN[0]
 	CCL->LUTCTRL[0].bit.INSEL0 = CCL_LUTCTRL_INSEL0_IO_Val;
 	CCL->LUTCTRL[0].bit.INSEL1 = CCL_LUTCTRL_INSEL2_MASK_Val;
 	CCL->LUTCTRL[0].bit.INSEL2 = CCL_LUTCTRL_INSEL2_MASK_Val;
@@ -51,12 +49,12 @@ void CCL_init(void) {
 	CCL->LUTCTRL[0].bit.EDGESEL = 0;
 	CCL->LUTCTRL[0].bit.FILTSEL = CCL_LUTCTRL_FILTSEL_DISABLE_Val;
 	CCL->SEQCTRL[0].bit.SEQSEL = CCL_SEQCTRL_SEQSEL_DISABLE_Val;
+	printf("CCL     -- configure input of LUT[0], IN[0] is IO.\r\n");
 	
-	// Configure Truth table:
 	CCL->LUTCTRL[0].bit.TRUTH = 0x01;
 	CCL->LUTCTRL[0].bit.ENABLE = 1;
+	printf("CCL     -- configure and enable LUT[0], inverting input.\r\n");
 	
-	// Set CCL[2] to collect input from SERCOM2 TX. Note: Only SERCOM PAD0 can be used as input for CCL
 	CCL->LUTCTRL[2].bit.INSEL0 = CCL_LUTCTRL_INSEL2_SERCOM_Val;
 	CCL->LUTCTRL[2].bit.INSEL1 = CCL_LUTCTRL_INSEL2_MASK_Val;
 	CCL->LUTCTRL[2].bit.INSEL2 = CCL_LUTCTRL_INSEL2_MASK_Val;
@@ -65,13 +63,12 @@ void CCL_init(void) {
 	CCL->LUTCTRL[2].bit.EDGESEL = 0;
 	CCL->LUTCTRL[2].bit.FILTSEL = CCL_LUTCTRL_FILTSEL_DISABLE_Val;
 	CCL->SEQCTRL[1].bit.SEQSEL = CCL_SEQCTRL_SEQSEL_DISABLE_Val;
+	printf("CCL     -- configure input of LUT[0], IN[0] is SERCOM2, Pad 0.\r\n");
 	
-	// Configure Truth table:
 	CCL->LUTCTRL[2].bit.TRUTH = 0x01;
 	CCL->LUTCTRL[2].bit.ENABLE = 1;
+	printf("CCL     -- configure and enable LUT[0], inverting input.\r\n");
 	
-	// Enable CCL
 	CCL->CTRL.bit.ENABLE = 1;
-	
-	printf("CCL     -- init CCL0 and CCL2 to invert SERCOM.\r\n");
+	printf("CCL     -- enable CCL.\r\n");
 }
