@@ -33,6 +33,7 @@
 #include "my_init/gclk.h"
 #include "my_init/dpll.h"
 #include "my_init/gpio.h"
+#include "my_init/ccl.h"
 #include "my_init/pwm.h"
 #include "my_init/sercom.h"
 #include "my_init/rtc.h"
@@ -76,6 +77,7 @@ int main(void) {
 	printf("GPIO    -- configured PMUX for GCLK1, TC7 WO0 and WO1, UART RX and TX.\r\n");
 	printf("UART    -- initialized to 115200 baud, 8N1.\r\n");
 	
+	CCL_init();
 	RTC_init();
 	DPLL_init();
 	PWM_init();

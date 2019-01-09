@@ -168,6 +168,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\ccl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\ccl.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\dpll.c">
       <SubType>compile</SubType>
     </Compile>
