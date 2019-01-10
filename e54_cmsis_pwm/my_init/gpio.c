@@ -41,13 +41,10 @@ enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
  */
 void GPIO_init(void) {
 	
-	// set pull-up on RC21 to be able to read out switch
-	PORT->Group[GPIO_PORTC].WRCONFIG.reg =
-		  PORT_WRCONFIG_PULLEN
-		| PORT_WRCONFIG_HWSEL
-		| PORT_WRCONFIG_WRPINCFG
-		| ((1 << 5) & 0xffff);
-	PORT->Group[GPIO_PORTC].OUTSET = (1 << 21);
+	// hold down RC21 to disable PHY for correct power-down readings
+	// hw fix: remove R602, replace C613 with 100k resistor
+	PORT->Group[GPIO_PORTC].DIRSET = (1 << 21);
+	PORT->Group[GPIO_PORTC].OUTCLR = (1 << 21);
 	
 	// set GLCK1 output
 	PORT->Group[GPIO_PORTB].WRCONFIG.reg =
