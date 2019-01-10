@@ -43,11 +43,11 @@ void RTC_init(void) {
 	
 	RTC->MODE0.CTRLA.reg = 
 		  RTC_MODE0_CTRLA_COUNTSYNC
-		| RTC_MODE0_CTRLA_PRESCALER_DIV1
+		| RTC_MODE0_CTRLA_PRESCALER_DIV8
 		| RTC_MODE0_CTRLA_MATCHCLR;
 	while(RTC->MODE0.SYNCBUSY.bit.COUNTSYNC);
 	printf("RTC     -- enable read synchronization for count register.\r\n");
-	printf("RTC     -- set divider to 1.\r\n");
+	printf("RTC     -- set divider to 8.\r\n");
 	printf("RTC     -- enable clear on match.\r\n");
 	
 	RTC->MODE0.EVCTRL.bit.CMPEO0 = 1;

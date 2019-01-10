@@ -41,6 +41,14 @@ enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
  */
 void GPIO_init(void) {
 	
+	// set pull-up on RC21 to be able to read out switch
+	PORT->Group[GPIO_PORTC].WRCONFIG.reg =
+		  PORT_WRCONFIG_PULLEN
+		| PORT_WRCONFIG_HWSEL
+		| PORT_WRCONFIG_WRPINCFG
+		| ((1 << 5) & 0xffff);
+	PORT->Group[GPIO_PORTC].OUTSET = (1 << 21);
+	
 	// set GLCK1 output
 	PORT->Group[GPIO_PORTB].WRCONFIG.reg =
 		  PORT_WRCONFIG_PMUX(MUX_PB15M_GCLK_IO1) 

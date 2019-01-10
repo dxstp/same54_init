@@ -55,19 +55,19 @@ int main(void) {
 	// some interfaces of modules must first be unmasked to be clocked by
 	// the synchronous bus clock.
 	
-	OSCCTRL_init();
-	GCLK_init();
-	SERCOM2_init();
-	print_init();
+	 OSCCTRL_init();
+	 GCLK_init();
+	 SERCOM2_init();
+	 print_init();
 	
 	// init the GPIO module to output GLCK1
 	// PWM from TC7, WO0 and WO1
 	// RX = PB24, TX = PB25 (for Xplained Board)
-	GPIO_init();
+	 GPIO_init();
 	
 	// at this point the controller is able to output debug messages
 	printf("\r\n-- SAME54 Xplained Pro boot example --\r\n");
-    printf("Built "__TIME__" at "__DATE__"\r\n\r\n");
+	printf("Built "__TIME__" at "__DATE__"\r\n\r\n");
 	printf("OSCCTRL -- XOSC1 (12 MHz) running.\r\n");
 	printf("GCLK0   -- connected to DPLL0 (120 MHz).\r\n");
 	printf("GCLK1   -- connected to DPLL1 (200 MHz).\r\n");
@@ -89,6 +89,7 @@ int main(void) {
 
 	while (1) {
 		printf("Going into standby now, RTC counter = %010u.\r\n\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
+		__DSB();
 		__WFI();
 		printf("Woke up from standby,   RTC counter = %010u.\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
 	}
