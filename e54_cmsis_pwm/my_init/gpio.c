@@ -43,10 +43,10 @@ void GPIO_init(void) {
 	
 	// hold down RC21 to disable PHY for correct power-down readings
 	// hw fix: remove R602, replace C613 with 100k resistor
-	PORT->Group[GPIO_PORTC].DIRSET = (1 << 21);
-	PORT->Group[GPIO_PORTC].OUTCLR = (1 << 21);
+	PORT->Group[GPIO_PORTC].DIRSET.reg = (1 << 21);
+	PORT->Group[GPIO_PORTC].OUTCLR.reg = (1 << 21);
 	
-	// set GLCK1 output
+	// set GCLK1 output
 	PORT->Group[GPIO_PORTB].WRCONFIG.reg =
 		  PORT_WRCONFIG_PMUX(MUX_PB15M_GCLK_IO1) 
 		| PORT_WRCONFIG_WRPMUX
