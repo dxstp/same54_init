@@ -34,32 +34,32 @@
 void RTC_init(void) {
 
 	OSC32KCTRL->RTCCTRL.reg = OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K;
-	printf("OSC32K  -- select internal 32kHz oscillator as source.\r\n");
+	//printf("OSC32K  -- select internal 32kHz oscillator as source.\r\n");
 	
 	RTC->MODE0.CTRLA.reg = RTC_MODE0_CTRLA_SWRST;
 	while(RTC->MODE0.SYNCBUSY.bit.SWRST);
 	while(RTC->MODE0.CTRLA.bit.SWRST);
-	printf("RTC     -- software reset.\r\n");
+	//printf("RTC     -- software reset.\r\n");
 	
 	RTC->MODE0.CTRLA.reg = 
 		  RTC_MODE0_CTRLA_COUNTSYNC
-		| RTC_MODE0_CTRLA_PRESCALER_DIV8
+		| RTC_MODE0_CTRLA_PRESCALER_DIV1
 		| RTC_MODE0_CTRLA_MATCHCLR;
 	while(RTC->MODE0.SYNCBUSY.bit.COUNTSYNC);
-	printf("RTC     -- enable read synchronization for count register.\r\n");
-	printf("RTC     -- set divider to 8.\r\n");
-	printf("RTC     -- enable clear on match.\r\n");
-	
-	RTC->MODE0.EVCTRL.bit.CMPEO0 = 1;
-	printf("RTC     -- enable event CMP0, will set intflag on match.\r\n");
+	//printf("RTC     -- enable read synchronization for count register.\r\n");
+	//printf("RTC     -- set divider to 1.\r\n");
+	//printf("RTC     -- enable clear on match.\r\n");
 	
 	RTC->MODE0.COMP[0].reg = 32768;
-	printf("RTC     -- set compare value to 32768.\r\n");
-		
+	//printf("RTC     -- set compare value to 32768.\r\n");
+	
+	RTC->MODE0.EVCTRL = RTC_MODE0_EVCTRL_CMPEO0;
+	//printf("RTC     -- enable event CMP0, will generate event on match.\r\n");
+	
 	RTC->MODE0.CTRLA.reg |= RTC_MODE0_CTRLA_ENABLE;
 	while(RTC->MODE0.SYNCBUSY.bit.ENABLE);
-	printf("RTC     -- enable RTC.\r\n");
-	
-	RTC->MODE0.INTENSET.bit.CMP0 = 1;
-	printf("RTC     -- enable interrupt for CMP0.\r\n");
+	//printf("RTC     -- enable RTC.\r\n");
+		
+	//RTC->MODE0.INTENSET.bit.CMP0 = 1;
+	//printf("RTC     -- enable interrupt for CMP0.\r\n");
 }

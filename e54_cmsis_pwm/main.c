@@ -33,13 +33,13 @@
 #include "my_init/gclk.h"
 #include "my_init/dpll.h"
 #include "my_init/gpio.h"
-#include "my_init/ccl.h"
-#include "my_init/pwm.h"
 #include "my_init/sercom.h"
 #include "my_init/rtc.h"
 #include "my_init/supc.h"
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
+#include "my_init/adc.h"
+#include "my_init/evsys.h"
 #include "utils/print.h"
 
 
@@ -47,55 +47,19 @@
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	// if everything is left on default, the controller will start with the
-	// internal 48 MHz FDPLL0 oscillator, routed to GLCK0.
-	// GLCK0 will provide the clock for MCLK, which clocks the CPU, the bus
-	// and the modules connected to the bus.
-	// However, some peripherals need a separate asynchronous clock and
-	// some interfaces of modules must first be unmasked to be clocked by
-	// the synchronous bus clock.
-	
-	 OSCCTRL_init();
-	 GCLK_init();
-	 SERCOM2_init();
-	 print_init();
-	
-	// init the GPIO module to output GLCK1
-	// PWM from TC7, WO0 and WO1
-	// RX = PB24, TX = PB25 (for Xplained Board)
-	 GPIO_init();
-	
-	// at this point the controller is able to output debug messages
-	printf("\r\n-- SAME54 Xplained Pro boot example --\r\n");
-	printf("Built "__TIME__" at "__DATE__"\r\n\r\n");
-	printf("OSCCTRL -- XOSC1 (12 MHz) running.\r\n");
-	printf("GCLK0   -- connected to DPLL0 (120 MHz).\r\n");
-	printf("GCLK1   -- connected to DPLL1 (200 MHz).\r\n");
-	printf("GCLK2   -- connected to DPLL1 (200 MHz), divider 200, output enabled (PB15).\r\n");
-	printf("GCLK3   -- connected to XOSC1 ( 12 MHz).\r\n");
-	printf("GCLK4   -- connected to OSCULP32K (32.768 kHz).\r\n");
-	printf("GPIO    -- configured PMUX for GCLK1, TC7 WO0 and WO1, UART RX and TX.\r\n");
-	printf("UART    -- initialized to 115200 baud, 8N1.\r\n");
-	
-	CCL_init();
+	//if(RSTC->RCAUSE.reg == RSTC_RCAUSE_BACKUP && RSTC->BKUPEXIT.reg == RSTC_BKUPEXIT_RTC);
 	RTC_init();
-	DPLL_init();
-	PWM_init();
 	SUPC_init();
+	GPIO_init();
 	PM_init();
-	IRQ_init();
+	ADC_init();
+	EVSYS_init();
+	GCLK_init();
 	
-	printf("\r\n-- Finished initialization, starting app.\r\n");
+	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
+	//__DSB();
+	//__WFI();
 
 	while (1) {
-		printf("Going into standby now, RTC counter = %010u.\r\n\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
-		__DSB();
-		__WFI();
-		printf("Woke up from standby,   RTC counter = %010u.\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
 	}
-}
-
-void RTC_Handler(void) {
-	RTC->MODE0.INTFLAG.reg = RTC_MODE0_INTFLAG_CMP0;
-	NVIC_ClearPendingIRQ(RTC_IRQn);
 }

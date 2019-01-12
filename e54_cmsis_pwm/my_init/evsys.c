@@ -23,12 +23,22 @@
  */
 // DOM-IGNORE-END
 
+#include <sam.h>
+#include <stdio.h>
+#include "evsys.h"
 
-#ifndef PWM_H_
-#define PWM_H_
-
-void PWM_init(void);
-
-
-
-#endif /* PWM_H_ */
+void EVSYS_init(void) {
+	Mclk->APBBMASK.reg |= MCLK_APBBMASK_EVSYS;
+	
+	GCLK->PCHCTRL[EVSYS_GCLK_ID_0].reg = GCLK_PCHCTRL_GEN_GCLK0 | (1 << GCLK_PCHCTRL_CHEN_Pos);
+	
+	EVSYS->CTRLA.reg = EVSYS_CTRLA_SWRST;
+	
+	EVSYS->USER[57].reg = 0x01; // channel 0: ADC1 start
+	
+	EVSYS->Channel[0].CHANNEL.reg =
+		| EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT
+		| EVSYS_CHANNEL_PATH_ASYNCHRONOUS
+		| EVSYS_CHANNEL_EVGEN(0x0c); // RTC COMP0
+		
+}

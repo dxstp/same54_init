@@ -23,12 +23,11 @@
  */
 // DOM-IGNORE-END
 
+#ifndef ADC_H_
+#define ADC_H_
 
-#ifndef CCL_H_
-#define CCL_H_
-
-void CCL_init(void);
-
+void ADC_init(void);
 
 
-#endif /* CCL_H_ */
+
+#endif /* ADC_H_ */

@@ -35,9 +35,8 @@ void SERCOM2_init(void) {
 	// unmask SERCOM2 in MCLK to enable clock to user interface
 	MCLK->APBBMASK.reg |= MCLK_APBBMASK_SERCOM2;
 	
-	// connect GLCK3 with SERCOM2 module (core and slow clock)
-	GCLK->PCHCTRL[SERCOM2_GCLK_ID_CORE].reg = GCLK_PCHCTRL_GEN_GCLK3 | (1 << GCLK_PCHCTRL_CHEN_Pos);
-	GCLK->PCHCTRL[SERCOM2_GCLK_ID_SLOW].reg = GCLK_PCHCTRL_GEN_GCLK4 | (1 << GCLK_PCHCTRL_CHEN_Pos);
+	// connect GLCK3 with SERCOM2 module (core clock)
+	GCLK->PCHCTRL[SERCOM2_GCLK_ID_CORE].reg = GCLK_PCHCTRL_GEN_GCLK0 | (1 << GCLK_PCHCTRL_CHEN_Pos);
 	
 	// do a software reset of the module (write-synchronized)
 	SERCOM2->USART.CTRLA.reg = SERCOM_USART_CTRLA_SWRST;

@@ -32,5 +32,5 @@
  */
 void SUPC_init(void) {
 	SUPC->VREG.bit.SEL = 1;
-	printf("SUPC    -- activated buck regulator for VDDCORE.\r\n");
+	//printf("SUPC    -- activated buck regulator for VDDCORE.\r\n");
 }
