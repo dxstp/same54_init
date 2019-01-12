@@ -34,7 +34,7 @@ void GCLK_init(void) {
 	// for main clock
 	GCLK->GENCTRL[0].reg =
 		  GCLK_GENCTRL_GENEN
-		| GCLK_GENCTRL_SRC_DFLL;
+		| GCLK_GENCTRL_SRC_DFLL
 		| GCLK_GENCTRL_DIV(6);
 		
 }

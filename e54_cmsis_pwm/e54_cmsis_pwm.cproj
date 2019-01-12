@@ -168,10 +168,22 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\dpll.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\dpll.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\evsys.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\evsys.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\gclk.c">
@@ -202,12 +214,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\pm.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="my_init\pwm.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="my_init\pwm.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\rtc.c">
