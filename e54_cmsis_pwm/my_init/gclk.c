@@ -30,7 +30,7 @@
  * connect GCLK0 to OSCULP32K
  */
 void GCLK_init(void) {
-	// GCLK0: source is OSCULP32K, no divisor
+	// GCLK0: source is DFLL, divided by 6.
 	// for main clock
 	GCLK->GENCTRL[0].reg =
 		  GCLK_GENCTRL_GENEN

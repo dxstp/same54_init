@@ -32,9 +32,6 @@
  */
 void PM_init(void) {
 	
-	// clear IORET to regain control of port configuration
-	PM->CTRLA.reg = 0;
-	
 	PM->SLEEPCFG.reg = PM_SLEEPCFG_SLEEPMODE_STANDBY;
 	while(PM->SLEEPCFG.reg != PM_SLEEPCFG_SLEEPMODE_STANDBY);
 	//printf("PM      -- configure sleep mode to STANDBY.\r\n");

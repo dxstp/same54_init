@@ -66,6 +66,7 @@ void ADC_init(void) {
 	ADC0->EVCTRL.reg = 
 		ADC_EVCTRL_STARTEI;
 	
+	// interrupt if window threshold is triggered
 	ADC0->INTENSET.reg = ADC_INTENSET_WINMON;
 	
 	ADC0->CTRLA.reg |= ADC_CTRLA_ENABLE;	  

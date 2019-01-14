@@ -31,7 +31,6 @@
 #include <stdio.h>
 #include "my_init/oscctrl.h"
 #include "my_init/gclk.h"
-#include "my_init/dpll.h"
 #include "my_init/gpio.h"
 #include "my_init/sercom.h"
 #include "my_init/rtc.h"
@@ -48,13 +47,14 @@
  */
 int main(void) {
 	//if(RSTC->RCAUSE.reg == RSTC_RCAUSE_BACKUP && RSTC->BKUPEXIT.reg == RSTC_BKUPEXIT_RTC);
-	RTC_init();
 	SUPC_init();
+	GCLK_init();
 	GPIO_init();
 	PM_init();
+	RTC_init();
 	ADC_init();
 	EVSYS_init();
-	GCLK_init();
+	
 	
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
 	//__DSB();
