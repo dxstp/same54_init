@@ -23,28 +23,12 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>
-#include <stdio.h>
-#include "evsys.h"
+#ifndef DELAY_H_
+#define DELAY_H_
 
-void EVSYS_init(void) {
-	MCLK->APBBMASK.reg |= MCLK_APBBMASK_EVSYS;
-	
-	GCLK->PCHCTRL[EVSYS_GCLK_ID_0].reg = GCLK_PCHCTRL_GEN_GCLK0 | (1 << GCLK_PCHCTRL_CHEN_Pos);
-	
-	EVSYS->CTRLA.reg = EVSYS_CTRLA_SWRST;
-	
-	RTC->MODE0.EVCTRL.reg = RTC_MODE0_EVCTRL_CMPEO0;
-	//printf("RTC     -- enable event CMP0, will generate event on match.\r\n");
-	
-	EVSYS->USER[57].reg = 0x00; // channel 0: ADC1 start
-	
-	EVSYS->Channel[0].CHANNEL.reg =
-		  EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT
-		| EVSYS_CHANNEL_RUNSTDBY
-		| EVSYS_CHANNEL_PATH_ASYNCHRONOUS
-		| EVSYS_CHANNEL_EVGEN(0x0c); // RTC COMP0
-	
-	ADC1->EVCTRL.reg = ADC_EVCTRL_STARTEI;
-	
-}
+
+#define CONF_CPU_FREQUENCY 200000
+
+void delay_ms(const uint16_t ms);
+
+#endif /* DELAY_H_ */

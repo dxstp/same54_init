@@ -234,6 +234,12 @@
     <Compile Include="my_init\sercom.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="utils\delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\delay.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="utils\print.c">
       <SubType>compile</SubType>
     </Compile>

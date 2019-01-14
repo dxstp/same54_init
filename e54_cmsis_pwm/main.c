@@ -40,6 +40,7 @@
 #include "my_init/adc.h"
 #include "my_init/evsys.h"
 #include "utils/print.h"
+#include "utils/delay.h"
 
 
 /** 
@@ -47,19 +48,47 @@
  */
 int main(void) {
 	//if(RSTC->RCAUSE.reg == RSTC_RCAUSE_BACKUP && RSTC->BKUPEXIT.reg == RSTC_BKUPEXIT_RTC);
-	SUPC_init();
+	//SUPC_init();
 	GCLK_init();
 	GPIO_init();
 	PM_init();
+	IRQ_init();
 	RTC_init();
 	ADC_init();
-	EVSYS_init();
+	//EVSYS_init();
 	
+	delay_ms(50);
 	
+	ADC1->SWTRIG.reg = ADC_SWTRIG_START;
+	ADC1->SWTRIG.reg = ADC_SWTRIG_FLUSH;
+	ADC1->SWTRIG.reg = ADC_SWTRIG_START;
+	asm("NOP");
+	while(1);
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
-	//__DSB();
-	//__WFI();
-
+	
+	uint count = 0;
+	
 	while (1) {
+		if(count++ < 32768) {
+			__DSB();
+			__WFI();
+		}
 	}
+}
+
+void RTC_Handler(void) {
+	RTC->MODE0.INTFLAG.reg = RTC_MODE0_INTFLAG_CMP0;
+	NVIC_ClearPendingIRQ(RTC_IRQn);
+}
+
+void ADC1_0_Handler(void) {
+	ADC1->INTFLAG.reg = ADC_INTFLAG_WINMON;
+	NVIC_ClearPendingIRQ(ADC1_0_IRQn);
+	while(1);
+}
+
+void ADC1_1_Handler(void) {
+	ADC1->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+	NVIC_ClearPendingIRQ(ADC1_1_IRQn);
+	while(1);
 }
