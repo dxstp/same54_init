@@ -27,7 +27,7 @@
 #define DELAY_H_
 
 
-#define CONF_CPU_FREQUENCY 200000
+#define CONF_CPU_FREQUENCY 2000000
 
 void delay_ms(const uint16_t ms);
 

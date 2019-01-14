@@ -25,6 +25,7 @@
 
 #include <sam.h>
 #include <stdio.h>
+#include "../utils/delay.h"
 #include "adc.h"
 
 
@@ -35,12 +36,12 @@ void ADC_init(void) {
 	
 	ADC1->CTRLA.reg = ADC_CTRLA_SWRST;
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_SWRST);
-	
+	//
 	ADC1->CTRLA.reg =
-		  ADC_CTRLA_ONDEMAND
-		| ADC_CTRLA_PRESCALER_DIV2
+		 // ADC_CTRLA_ONDEMAND
+		 ADC_CTRLA_PRESCALER_DIV2
 		| ADC_CTRLA_RUNSTDBY;
-	
+	//
 	ADC1->CTRLB.reg = 
 		  ADC_CTRLB_WINSS
 		| ADC_CTRLB_WINMODE_MODE1;
@@ -51,10 +52,10 @@ void ADC_init(void) {
 		  ADC_INPUTCTRL_MUXNEG_GND
 		| ADC_INPUTCTRL_MUXPOS_AIN6;
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_INPUTCTRL);
-	
+	//
 	ADC1->REFCTRL.reg = ADC_REFCTRL_REFSEL_INTREF;
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_REFCTRL);
-	
+	//
 	ADC1->WINLT.reg = 1024;
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_WINLT);
 	
@@ -64,15 +65,16 @@ void ADC_init(void) {
 		| ADC_CALIB_BIASREFBUF((ADC1_FUSES_BIASREFBUF_ADDR & ADC1_FUSES_BIASR2R_Msk) >> ADC1_FUSES_BIASR2R_Pos);
 		
 	// interrupt if window threshold is triggered
-	//ADC1->INTENSET.reg = ADC_INTENSET_WINMON;
+	ADC1->INTENSET.reg = ADC_INTENSET_WINMON;
 	
 	ADC1->INTENSET.reg = ADC_INTENSET_RESRDY;
 	
-		
-	//ADC1->EVCTRL.reg = ADC_EVCTRL_STARTEI;
+			
+	ADC1->EVCTRL.reg = ADC_EVCTRL_STARTEI;
 	
 	
-	ADC1->CTRLA.reg |= ADC_CTRLA_ENABLE;	  
+	ADC1->CTRLA.reg |= ADC_CTRLA_ENABLE;
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_ENABLE);
 
+	delay_ms(2);
 }

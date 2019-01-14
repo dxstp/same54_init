@@ -47,7 +47,6 @@
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	//if(RSTC->RCAUSE.reg == RSTC_RCAUSE_BACKUP && RSTC->BKUPEXIT.reg == RSTC_BKUPEXIT_RTC);
 	//SUPC_init();
 	GCLK_init();
 	GPIO_init();
@@ -55,14 +54,10 @@ int main(void) {
 	IRQ_init();
 	RTC_init();
 	ADC_init();
-	//EVSYS_init();
+	EVSYS_init();
 	
-	delay_ms(50);
+	//ADC1->SWTRIG.reg = ADC_SWTRIG_START;
 	
-	ADC1->SWTRIG.reg = ADC_SWTRIG_START;
-	ADC1->SWTRIG.reg = ADC_SWTRIG_FLUSH;
-	ADC1->SWTRIG.reg = ADC_SWTRIG_START;
-	asm("NOP");
 	while(1);
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
 	

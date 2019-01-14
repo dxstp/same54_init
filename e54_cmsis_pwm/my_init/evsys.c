@@ -37,14 +37,12 @@ void EVSYS_init(void) {
 	RTC->MODE0.EVCTRL.reg = RTC_MODE0_EVCTRL_CMPEO0;
 	//printf("RTC     -- enable event CMP0, will generate event on match.\r\n");
 	
-	EVSYS->USER[57].reg = 0x00; // channel 0: ADC1 start
+	EVSYS->USER[57].reg = 0x01; // channel 0: ADC1 start
 	
-	EVSYS->Channel[0].CHANNEL.reg =
+	EVSYS->Channel[1].CHANNEL.reg =
 		  EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT
 		| EVSYS_CHANNEL_RUNSTDBY
 		| EVSYS_CHANNEL_PATH_ASYNCHRONOUS
 		| EVSYS_CHANNEL_EVGEN(0x0c); // RTC COMP0
-	
-	ADC1->EVCTRL.reg = ADC_EVCTRL_STARTEI;
 	
 }
