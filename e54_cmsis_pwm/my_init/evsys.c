@@ -34,7 +34,7 @@ void EVSYS_init(void) {
 	
 	EVSYS->CTRLA.reg = EVSYS_CTRLA_SWRST;
 	
-	EVSYS->USER[57].reg = 0x01; // channel 0: ADC1 start
+	EVSYS->USER[57].reg = 0x02; // channel 1: ADC1 start
 	
 	EVSYS->Channel[1].CHANNEL.reg =
 		  EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT

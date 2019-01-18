@@ -56,8 +56,9 @@ int main(void) {
 	EVSYS_init();
 	
 	//ADC1->SWTRIG.reg = ADC_SWTRIG_START;
+	//EVSYS->SWEVT.reg = EVSYS_SWEVT_CHANNEL1;
 	
-	while(1);
+	//while(1);
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
 	
 	uint count = 0;
@@ -73,6 +74,7 @@ int main(void) {
 void RTC_Handler(void) {
 	RTC->MODE0.INTFLAG.reg = RTC_MODE0_INTFLAG_CMP0;
 	NVIC_ClearPendingIRQ(RTC_IRQn);
+	while(1);
 }
 
 void ADC1_0_Handler(void) {
@@ -84,5 +86,4 @@ void ADC1_0_Handler(void) {
 void ADC1_1_Handler(void) {
 	ADC1->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 	NVIC_ClearPendingIRQ(ADC1_1_IRQn);
-	while(1);
 }
