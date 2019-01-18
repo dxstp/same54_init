@@ -87,3 +87,7 @@ static void _delay_cycles(void *const hw, uint32_t cycles)
 void delay_ms(const uint16_t ms) {
 	_delay_cycles(0x0, _get_cycles_for_ms(ms));
 }
+
+void delay_cycles(const uint32_t cycles) {
+	_delay_cycles(0x0, cycles);
+}

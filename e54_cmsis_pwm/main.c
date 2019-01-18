@@ -39,6 +39,7 @@
 #include "my_init/irqs.h"
 #include "my_init/adc.h"
 #include "my_init/evsys.h"
+#include "utils/delay.h"
 
 
 /** 
@@ -47,7 +48,7 @@
 int main(void) {
 	SUPC_init();
 	//OSCCTRL_init();
-	MCLK_init();
+	//MCLK_init();
 	GCLK_init();
 	GPIO_init();
 	PM_init();
@@ -73,11 +74,13 @@ void RTC_Handler(void) {
 void ADC1_0_Handler(void) {
 	ADC1->INTFLAG.reg = ADC_INTFLAG_WINMON;
 	NVIC_ClearPendingIRQ(ADC1_0_IRQn);
-	while(1);
+	//while(1);
+	delay_cycles(1000);
 }
 
 void ADC1_1_Handler(void) {
 	ADC1->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 	NVIC_ClearPendingIRQ(ADC1_1_IRQn);
-	while(1);
+	//while(1);
+	delay_cycles(1000);
 }

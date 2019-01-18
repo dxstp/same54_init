@@ -38,8 +38,8 @@ void ADC_init(void) {
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_SWRST);
 	//
 	ADC1->CTRLA.reg =
-		  ADC_CTRLA_ONDEMAND
-		| ADC_CTRLA_PRESCALER_DIV2
+		//ADC_CTRLA_ONDEMAND
+		 ADC_CTRLA_PRESCALER_DIV2
 		| ADC_CTRLA_RUNSTDBY;
 	//
 	ADC1->CTRLB.reg = 
@@ -66,12 +66,14 @@ void ADC_init(void) {
 		
 	// interrupt if window threshold is triggered
 	ADC1->INTENSET.reg = ADC_INTENSET_WINMON;
+	//ADC1->INTENSET.reg = ADC_INTENSET_RESRDY;
 				
-	ADC1->EVCTRL.reg = ADC_EVCTRL_FLUSHEI;
+	ADC1->EVCTRL.reg = ADC_EVCTRL_STARTEI;
 	
 	ADC1->CTRLA.reg |= ADC_CTRLA_ENABLE;
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_ENABLE);
 
 	delay_ms(2);
-	
+
+	while(ADC1->STATUS.reg & ADC_STATUS_ADCBUSY);	
 }

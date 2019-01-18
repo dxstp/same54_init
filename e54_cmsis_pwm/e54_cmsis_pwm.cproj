@@ -175,12 +175,6 @@
     <Compile Include="my_init\adc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="my_init\dpll.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="my_init\dpll.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="my_init\evsys.c">
       <SubType>compile</SubType>
     </Compile>
@@ -235,22 +229,10 @@
     <Compile Include="my_init\supc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="my_init\sercom.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="my_init\sercom.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="utils\delay.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\delay.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="utils\print.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="utils\print.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
