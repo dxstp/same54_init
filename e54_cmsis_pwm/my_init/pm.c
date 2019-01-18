@@ -36,4 +36,5 @@ void PM_init(void) {
 	while(PM->SLEEPCFG.reg != PM_SLEEPCFG_SLEEPMODE_STANDBY);
 	//printf("PM      -- configure sleep mode to STANDBY.\r\n");
 
+	PM->STDBYCFG.reg = PM_STDBYCFG_RAMCFG_OFF;
 }

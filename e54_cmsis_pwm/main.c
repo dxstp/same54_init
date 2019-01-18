@@ -30,23 +30,24 @@
 #include <sam.h>
 #include <stdio.h>
 #include "my_init/oscctrl.h"
+#include "my_init/mclk.h"
 #include "my_init/gclk.h"
 #include "my_init/gpio.h"
-#include "my_init/sercom.h"
 #include "my_init/rtc.h"
 #include "my_init/supc.h"
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
 #include "my_init/adc.h"
 #include "my_init/evsys.h"
-#include "utils/print.h"
 
 
 /** 
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	//SUPC_init();
+	SUPC_init();
+	//OSCCTRL_init();
+	MCLK_init();
 	GCLK_init();
 	GPIO_init();
 	PM_init();
@@ -55,19 +56,11 @@ int main(void) {
 	ADC_init();
 	EVSYS_init();
 	
-	//ADC1->SWTRIG.reg = ADC_SWTRIG_START;
-	//EVSYS->SWEVT.reg = EVSYS_SWEVT_CHANNEL1;
-	
-	//while(1);
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
 	
-	uint count = 0;
-	
 	while (1) {
-		if(count++ < 32768) {
-			__DSB();
-			__WFI();
-		}
+		__DSB();
+		__WFI();
 	}
 }
 
@@ -86,4 +79,5 @@ void ADC1_0_Handler(void) {
 void ADC1_1_Handler(void) {
 	ADC1->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 	NVIC_ClearPendingIRQ(ADC1_1_IRQn);
+	while(1);
 }

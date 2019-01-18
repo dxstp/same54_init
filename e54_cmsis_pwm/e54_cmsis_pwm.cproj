@@ -41,7 +41,7 @@
       </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.edbg</avrtool>
-    <avrtoolserialnumber>ATML2748051800002049</avrtoolserialnumber>
+    <avrtoolserialnumber>ATML2748051800002863</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x61840200</avrdeviceexpectedsignature>
     <avrtoolinterface>SWD</avrtoolinterface>
     <com_atmel_avrdbg_tool_edbg>
@@ -52,7 +52,7 @@
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
       <ToolType>com.atmel.avrdbg.tool.edbg</ToolType>
-      <ToolNumber>ATML2748051800002049</ToolNumber>
+      <ToolNumber>ATML2748051800002863</ToolNumber>
       <ToolName>EDBG</ToolName>
     </com_atmel_avrdbg_tool_edbg>
     <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
@@ -203,6 +203,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\irqs.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\mclk.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\mclk.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="my_init\oscctrl.c">

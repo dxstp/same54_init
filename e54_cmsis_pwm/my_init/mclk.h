@@ -23,12 +23,10 @@
  */
 // DOM-IGNORE-END
 
+#ifndef MCLK_H_
+#define MCLK_H_
 
-#ifndef DPLL_H_
-#define DPLL_H_
-
-void DPLL_init(void);
-
+void MCLK_init(void);
 
 
-#endif /* DPLL_H_ */
+#endif /* MCLK_H_ */
