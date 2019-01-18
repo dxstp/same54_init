@@ -40,7 +40,6 @@
 #include "my_init/adc.h"
 #include "my_init/evsys.h"
 #include "utils/print.h"
-#include "utils/delay.h"
 
 
 /** 

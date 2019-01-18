@@ -34,9 +34,6 @@ void EVSYS_init(void) {
 	
 	EVSYS->CTRLA.reg = EVSYS_CTRLA_SWRST;
 	
-	RTC->MODE0.EVCTRL.reg = RTC_MODE0_EVCTRL_CMPEO0;
-	//printf("RTC     -- enable event CMP0, will generate event on match.\r\n");
-	
 	EVSYS->USER[57].reg = 0x01; // channel 0: ADC1 start
 	
 	EVSYS->Channel[1].CHANNEL.reg =
