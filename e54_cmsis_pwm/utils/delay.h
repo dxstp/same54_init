@@ -30,5 +30,6 @@
 #define CONF_CPU_FREQUENCY 12000000
 
 void delay_ms(const uint16_t ms);
+void delay_cycles(const uint32_t cycles);
 
 #endif /* DELAY_H_ */

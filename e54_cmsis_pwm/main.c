@@ -30,9 +30,9 @@
 #include <sam.h>
 #include <stdio.h>
 #include "my_init/oscctrl.h"
+#include "my_init/mclk.h"
 #include "my_init/gclk.h"
 #include "my_init/gpio.h"
-#include "my_init/sercom.h"
 #include "my_init/rtc.h"
 #include "my_init/supc.h"
 #include "my_init/pm.h"
@@ -78,10 +78,13 @@ void RTC_Handler(void) {
 void ADC1_0_Handler(void) {
 	ADC1->INTFLAG.reg = ADC_INTFLAG_WINMON;
 	NVIC_ClearPendingIRQ(ADC1_0_IRQn);
-	while(1);
+	//while(1);
+	delay_cycles(1000);
 }
 
 void ADC1_1_Handler(void) {
 	ADC1->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 	NVIC_ClearPendingIRQ(ADC1_1_IRQn);
+	//while(1);
+	delay_cycles(1000);
 }

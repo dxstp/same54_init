@@ -76,5 +76,6 @@ void ADC_init(void) {
 	while(ADC1->SYNCBUSY.reg & ADC_SYNCBUSY_ENABLE);
 
 	delay_ms(2);
-	
+
+	while(ADC1->STATUS.reg & ADC_STATUS_ADCBUSY);	
 }
