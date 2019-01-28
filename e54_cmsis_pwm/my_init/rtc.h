@@ -27,6 +27,8 @@
 #ifndef RTC_H_
 #define RTC_H_
 
+#define RTC_EVENT_PERIOD 656
+
 
 void RTC_init(void);
 

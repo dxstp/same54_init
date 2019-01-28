@@ -49,6 +49,7 @@
 int main(void) {
 	OSCCTRL_init();
 	GCLK_init();
+	
 	delay_ms(200);
 	
 	SUPC_init();
@@ -59,19 +60,12 @@ int main(void) {
 	ADC_init();
 	EVSYS_init();
 	
-	//ADC1->SWTRIG.reg = ADC_SWTRIG_START;
-	//EVSYS->SWEVT.reg = EVSYS_SWEVT_CHANNEL1;
-	
-	//while(1);
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
 	
-	uint count = 0;
-	
 	while (1) {
-		//if(count++ < 32768) {
-			__DSB();
-			__WFI();
-		//}
+		__DSB();
+		__WFI();
+
 	}
 }
 
