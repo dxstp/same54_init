@@ -31,6 +31,10 @@
  * init the SUPC module to activate the buck regulator.
  */
 void SUPC_init(void) {
-	SUPC->VREG.reg = SUPC_VREG_SEL_BUCK;
+	SUPC->VREG.reg =
+		  SUPC_VREG_SEL_BUCK
+		| SUPC_VREG_ENABLE;
+		
+	while(!(SUPC->STATUS.bit.VREGRDY));
 	//printf("SUPC    -- activated buck regulator for VDDCORE.\r\n");
 }

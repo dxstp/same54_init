@@ -50,7 +50,7 @@ void RTC_init(void) {
 	//printf("RTC     -- set divider to 1.\r\n");
 	//printf("RTC     -- enable clear on match.\r\n");
 	
-	RTC->MODE0.COMP[0].reg = 3276;
+	RTC->MODE0.COMP[0].reg = 164;
 	//printf("RTC     -- set compare value to 32768.\r\n");
 	
 	RTC->MODE0.EVCTRL.reg = RTC_MODE0_EVCTRL_CMPEO0;

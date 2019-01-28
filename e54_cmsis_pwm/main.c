@@ -40,20 +40,24 @@
 #include "my_init/adc.h"
 #include "my_init/evsys.h"
 #include "utils/print.h"
+#include "utils/delay.h"
 
 
 /** 
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	SUPC_init();
+	OSCCTRL_init();
 	GCLK_init();
+	delay_ms(200);
+	
+	SUPC_init();
 	GPIO_init();
 	PM_init();
 	IRQ_init();
-	//RTC_init();
-	//ADC_init();
-	//EVSYS_init();
+	RTC_init();
+	ADC_init();
+	EVSYS_init();
 	
 	//ADC1->SWTRIG.reg = ADC_SWTRIG_START;
 	//EVSYS->SWEVT.reg = EVSYS_SWEVT_CHANNEL1;
