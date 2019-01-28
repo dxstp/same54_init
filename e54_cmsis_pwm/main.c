@@ -46,14 +46,14 @@
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	//SUPC_init();
+	SUPC_init();
 	GCLK_init();
 	GPIO_init();
 	PM_init();
 	IRQ_init();
-	RTC_init();
-	ADC_init();
-	EVSYS_init();
+	//RTC_init();
+	//ADC_init();
+	//EVSYS_init();
 	
 	//ADC1->SWTRIG.reg = ADC_SWTRIG_START;
 	//EVSYS->SWEVT.reg = EVSYS_SWEVT_CHANNEL1;
@@ -64,10 +64,10 @@ int main(void) {
 	uint count = 0;
 	
 	while (1) {
-		if(count++ < 32768) {
+		//if(count++ < 32768) {
 			__DSB();
 			__WFI();
-		}
+		//}
 	}
 }
 
