@@ -24,47 +24,35 @@
 // DOM-IGNORE-END
 
 #include <sam.h>
-#include "gpio.h"
+#include "ac.h"
 
-/**
- * \brief Macros for the pin and port group, lower 5
- * bits stands for pin number in the group, higher 3
- * bits stands for port group
- */
-
-enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
-
-/**
- * init the GPIO module
- */
-void GPIO_init(void) {
+void AC_init(void) {
+	MCLK->APBCMASK.bit.AC_ = 1;
+	GCLK->PCHCTRL[AC_GCLK_ID].reg = 
+		  GCLK_PCHCTRL_GEN_GCLK0
+		| GCLK_PCHCTRL_CHEN;
 	
-	// hold down RC21 to disable PHY for correct power-down readings
-	// hw fix: remove R602, replace C613 with 100k resistor
-	PORT->Group[GPIO_PORTC].DIRSET.reg = (1 << 21);
-	PORT->Group[GPIO_PORTC].OUTCLR.reg = (1 << 21);
+	AC->CTRLA.bit.SWRST = 1;
+	while(AC->SYNCBUSY.bit.SWRST);
 	
-	// enable AD input on PB04
-	PORT->Group[GPIO_PORTB].WRCONFIG.reg = 
-		  PORT_WRCONFIG_PMUX(MUX_PB04B_ADC1_AIN6)
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| ((1 << 4) & 0xffff);
+	AC->SCALER[0].reg = 0x1f;
 	
-	// enable AD input on PB05	
-	PORT->Group[GPIO_PORTB].WRCONFIG.reg =
-		  PORT_WRCONFIG_PMUX(MUX_PB05B_ADC1_AIN7)
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| ((1 << 5) & 0xffff);
+	AC->CALIB.reg = AC_CALIB_BIAS0((AC_FUSES_BIAS0_ADDR & AC_FUSES_BIAS0_Msk) >> AC_FUSES_BIAS0_Pos);
 	
-	// enable Comp input on PA07
-	PORT->Group[GPIO_PORTA].WRCONFIG.reg = 
-		  PORT_WRCONFIG_PMUX(MUX_PA07B_AC_AIN3)
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| ((1 << 7) & 0xffff);
+	AC->COMPCTRL[0].reg = 
+		    AC_COMPCTRL_OUT_OFF
+		  | AC_COMPCTRL_FLEN_OFF
+		  | AC_COMPCTRL_HYST_HYST50
+		  | AC_COMPCTRL_SPEED_HIGH
+		  | AC_COMPCTRL_MUXNEG_PIN3
+		  | AC_COMPCTRL_MUXPOS_VSCALE
+		  | AC_COMPCTRL_RUNSTDBY
+		  | AC_COMPCTRL_SINGLE;
+	while(AC->SYNCBUSY.bit.COMPCTRL0);
+	
+	AC->EVCTRL.bit.COMPEI0 = 1;
+	
+	AC->CTRLA.bit.ENABLE = 1;
+	while(AC->SYNCBUSY.bit.ENABLE);
+	
 }

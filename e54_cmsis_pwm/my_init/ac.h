@@ -23,48 +23,12 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>
-#include "gpio.h"
 
-/**
- * \brief Macros for the pin and port group, lower 5
- * bits stands for pin number in the group, higher 3
- * bits stands for port group
- */
+#ifndef AC_H_
+#define AC_H_
 
-enum gpio_port { GPIO_PORTA, GPIO_PORTB, GPIO_PORTC, GPIO_PORTD, GPIO_PORTE };
+void AC_init(void);
 
-/**
- * init the GPIO module
- */
-void GPIO_init(void) {
-	
-	// hold down RC21 to disable PHY for correct power-down readings
-	// hw fix: remove R602, replace C613 with 100k resistor
-	PORT->Group[GPIO_PORTC].DIRSET.reg = (1 << 21);
-	PORT->Group[GPIO_PORTC].OUTCLR.reg = (1 << 21);
-	
-	// enable AD input on PB04
-	PORT->Group[GPIO_PORTB].WRCONFIG.reg = 
-		  PORT_WRCONFIG_PMUX(MUX_PB04B_ADC1_AIN6)
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| ((1 << 4) & 0xffff);
-	
-	// enable AD input on PB05	
-	PORT->Group[GPIO_PORTB].WRCONFIG.reg =
-		  PORT_WRCONFIG_PMUX(MUX_PB05B_ADC1_AIN7)
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| ((1 << 5) & 0xffff);
-	
-	// enable Comp input on PA07
-	PORT->Group[GPIO_PORTA].WRCONFIG.reg = 
-		  PORT_WRCONFIG_PMUX(MUX_PA07B_AC_AIN3)
-		| PORT_WRCONFIG_WRPINCFG
-		| PORT_WRCONFIG_WRPMUX
-		| PORT_WRCONFIG_PMUXEN
-		| ((1 << 7) & 0xffff);
-}
+
+
+#endif /* AC_H_ */

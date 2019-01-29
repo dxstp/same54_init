@@ -38,6 +38,7 @@
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
 #include "my_init/adc.h"
+#include "my_init/ac.h"
 #include "my_init/evsys.h"
 #include "utils/delay.h"
 
@@ -56,7 +57,8 @@ int main(void) {
 	PM_init();
 	IRQ_init();
 	RTC_init();
-	ADC_init();
+	//ADC_init();
+	AC_init();
 	EVSYS_init();
 	
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
