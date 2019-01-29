@@ -39,7 +39,6 @@
 #include "my_init/irqs.h"
 #include "my_init/adc.h"
 #include "my_init/evsys.h"
-#include "utils/print.h"
 #include "utils/delay.h"
 
 
@@ -65,7 +64,6 @@ int main(void) {
 	while (1) {
 		__DSB();
 		__WFI();
-
 	}
 }
 
