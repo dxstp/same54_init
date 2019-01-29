@@ -38,4 +38,7 @@ void IRQ_init(void) {
 	
 	NVIC_SetPriority(ADC1_1_IRQn, 3);
 	NVIC_EnableIRQ(ADC1_1_IRQn);
+	
+	NVIC_SetPriority(AC_IRQn, 3);
+	NVIC_EnableIRQ(AC_IRQn);
 }

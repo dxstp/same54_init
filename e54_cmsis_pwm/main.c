@@ -88,3 +88,10 @@ void ADC1_1_Handler(void) {
 	//while(1);
 	delay_cycles(1000);
 }
+
+void AC_Handler(void) {
+	AC->INTFLAG.reg = AC_INTFLAG_COMP0;
+	NVIC_ClearPendingIRQ(AC_IRQn);
+	//while(1);
+	delay_cycles(1000);
+}
