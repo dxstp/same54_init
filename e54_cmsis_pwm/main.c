@@ -47,7 +47,7 @@
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	OSCCTRL_init();
+	//OSCCTRL_init();
 	GCLK_init();
 	
 	delay_ms(200);

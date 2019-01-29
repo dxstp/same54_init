@@ -32,9 +32,13 @@
 void GCLK_init(void) {
 	// GCLK0: source is XOSC1
 	// for main clock
+	//GCLK->GENCTRL[0].reg =
+	//GCLK_GENCTRL_DIV(1)
+	//| (1 << GCLK_GENCTRL_GENEN_Pos)
+	//| GCLK_GENCTRL_SRC_XOSC1;
+	
 	GCLK->GENCTRL[0].reg =
 	GCLK_GENCTRL_DIV(1)
 	| (1 << GCLK_GENCTRL_GENEN_Pos)
-	| GCLK_GENCTRL_SRC_XOSC1;
-	
+	| GCLK_GENCTRL_SRC_OSCULP32K;
 }
