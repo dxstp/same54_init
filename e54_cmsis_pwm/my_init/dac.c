@@ -47,7 +47,8 @@ void DAC_init(void) {
 	DAC->DACCTRL[0].bit.ENABLE = 1;
 	DAC->DACCTRL[0].bit.REFRESH = 1;
 	DAC->DACCTRL[0].bit.RUNSTDBY = 1;
-	printf("DAC     -- select unbuffered external reference, current control to 1MBps mode.\r\n");
+	printf("DAC     -- select unbuffered external reference.\r\n");
+	printf("DAC     -- current control to 1MBps mode.\r\n");
 	printf("DAC     -- Enable DAC0 with auto refresh every 30us.\r\n");
 	
 	DAC->CTRLA.bit.ENABLE = 1;

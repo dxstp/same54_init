@@ -88,14 +88,21 @@ int main(void) {
 	DAC_init();
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
-DAC->DATA[0].reg = 0x400;
+	
+	DAC->DATA[0].reg = 0x800;
+	__DSB();
+	__WFI();
+	
 	while (1) {
-		
-
+	
 	}
 }
 
 void RTC_Handler(void) {
 	RTC->MODE0.INTFLAG.reg = RTC_MODE0_INTFLAG_CMP0;
 	NVIC_ClearPendingIRQ(RTC_IRQn);
+}
+
+void HardFault_Handler(void) {
+	while(1);
 }

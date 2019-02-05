@@ -31,12 +31,9 @@
  * init the PM module to configure the sleep mode.
  */
 void PM_init(void) {
-	PM->SLEEPCFG.reg = PM_SLEEPCFG_SLEEPMODE_BACKUP;
-	printf("PM      -- configure sleep mode to BACKUP.\r\n");
+	PM->SLEEPCFG.reg = PM_SLEEPCFG_SLEEPMODE_STANDBY;
+	printf("PM      -- configure sleep mode to STANDBY.\r\n");
 	
 	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
-	printf("PM      -- sleep mode ready.\r\n");
-	
-	PM->STDBYCFG.bit.RAMCFG = PM_STDBYCFG_RAMCFG_OFF;
-	printf("PM      -- configure standby to not retain any system ram.\r\n");
+	printf("PM      -- sleep mode ready.\r\n");	
 }
