@@ -42,12 +42,12 @@ void DAC_init(void) {
 	while(DAC->CTRLA.bit.SWRST);
 	printf("DAC     -- issue a software reset.\r\n");
 	
-	DAC->CTRLB.bit.REFSEL = DAC_CTRLB_REFSEL_INTREF_Val;
+	DAC->CTRLB.bit.REFSEL = DAC_CTRLB_REFSEL_VREFPU;
 	DAC->DACCTRL[0].bit.CCTRL = DAC_DACCTRL_CCTRL_CC12M_Val;
 	DAC->DACCTRL[0].bit.ENABLE = 1;
 	DAC->DACCTRL[0].bit.REFRESH = 1;
 	DAC->DACCTRL[0].bit.RUNSTDBY = 1;
-	printf("DAC     -- select internal reference, current control to 1MBps mode.\r\n");
+	printf("DAC     -- select unbuffered external reference, current control to 1MBps mode.\r\n");
 	printf("DAC     -- Enable DAC0 with auto refresh every 30us.\r\n");
 	
 	DAC->CTRLA.bit.ENABLE = 1;
