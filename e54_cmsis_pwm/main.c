@@ -88,9 +88,10 @@ int main(void) {
 	DAC_init();
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
-
+DAC->DATA[0].reg = 0x400;
 	while (1) {
-;
+		
+
 	}
 }
 
