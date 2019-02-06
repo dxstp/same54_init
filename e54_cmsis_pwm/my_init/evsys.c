@@ -25,17 +25,22 @@
 
 #include <sam.h>
 #include <stdio.h>
-#include "irqs.h"
+#include "evsys.h"
 
-void IRQ_init(void) {
-	//NVIC_SetPriority(RTC_IRQn, 3);
-	//printf("IRQ     -- set RTC_IRQ to priority 3.\r\n");
-	//NVIC_EnableIRQ(RTC_IRQn);
-	//printf("IRQ     -- enable RTC_IRQ.\r\n");
+void EVSYS_init(void) {
+	MCLK->APBBMASK.reg |= MCLK_APBBMASK_EVSYS;
 	
-	NVIC_SetPriority(ADC1_0_IRQn, 3);
-	NVIC_EnableIRQ(ADC1_0_IRQn);
+	GCLK->PCHCTRL[EVSYS_GCLK_ID_0].reg = GCLK_PCHCTRL_GEN_GCLK0 | (1 << GCLK_PCHCTRL_CHEN_Pos);
 	
-	NVIC_SetPriority(ADC1_1_IRQn, 3);
-	NVIC_EnableIRQ(ADC1_1_IRQn);
+	EVSYS->CTRLA.reg = EVSYS_CTRLA_SWRST;
+	
+	EVSYS->USER[57].reg = 0x01; // channel 0: ADC1 start
+	
+	EVSYS->Channel[0].CHANNEL.reg =
+		  EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT
+		| EVSYS_CHANNEL_ONDEMAND
+		| EVSYS_CHANNEL_RUNSTDBY
+		| EVSYS_CHANNEL_PATH_ASYNCHRONOUS
+		| EVSYS_CHANNEL_EVGEN(0x0c); // RTC COMP0
+	
 }

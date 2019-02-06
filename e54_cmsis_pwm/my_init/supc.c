@@ -31,6 +31,11 @@
  * init the SUPC module to activate the buck regulator.
  */
 void SUPC_init(void) {
-	SUPC->VREG.bit.SEL = 1;
-	printf("SUPC    -- activated buck regulator for VDDCORE.\r\n");
+	// don't clear the enable bit, otherwise you'll have trouble to program the device again
+	SUPC->VREG.reg =
+		  SUPC_VREG_SEL_LDO
+		| SUPC_VREG_ENABLE;
+		
+	while(!(SUPC->STATUS.bit.VREGRDY));
+	printf("SUPC    -- activated LDO regulator for VDDCORE.\r\n");
 }

@@ -41,6 +41,7 @@
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
 #include "my_init/dac.h"
+#include "my_init/adc.h"
 #include "utils/print.h"
 
 
@@ -48,14 +49,6 @@
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
-	// if everything is left on default, the controller will start with the
-	// internal 48 MHz FDPLL0 oscillator, routed to GLCK0.
-	// GLCK0 will provide the clock for MCLK, which clocks the CPU, the bus
-	// and the modules connected to the bus.
-	// However, some peripherals need a separate asynchronous clock and
-	// some interfaces of modules must first be unmasked to be clocked by
-	// the synchronous bus clock.
-	
 	 OSCCTRL_init();
 	 GCLK_init();
 	 SERCOM2_init();
@@ -86,6 +79,8 @@ int main(void) {
 	PM_init();
 	IRQ_init();
 	DAC_init();
+	ADC_init();
+	
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
 	

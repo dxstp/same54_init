@@ -23,19 +23,13 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>
-#include <stdio.h>
-#include "irqs.h"
+#ifndef DELAY_H_
+#define DELAY_H_
 
-void IRQ_init(void) {
-	//NVIC_SetPriority(RTC_IRQn, 3);
-	//printf("IRQ     -- set RTC_IRQ to priority 3.\r\n");
-	//NVIC_EnableIRQ(RTC_IRQn);
-	//printf("IRQ     -- enable RTC_IRQ.\r\n");
-	
-	NVIC_SetPriority(ADC1_0_IRQn, 3);
-	NVIC_EnableIRQ(ADC1_0_IRQn);
-	
-	NVIC_SetPriority(ADC1_1_IRQn, 3);
-	NVIC_EnableIRQ(ADC1_1_IRQn);
-}
+
+#define CONF_CPU_FREQUENCY 12000000
+
+void delay_ms(const uint16_t ms);
+void delay_cycles(const uint32_t cycles);
+
+#endif /* DELAY_H_ */

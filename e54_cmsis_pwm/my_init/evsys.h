@@ -23,19 +23,12 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>
-#include <stdio.h>
-#include "irqs.h"
 
-void IRQ_init(void) {
-	//NVIC_SetPriority(RTC_IRQn, 3);
-	//printf("IRQ     -- set RTC_IRQ to priority 3.\r\n");
-	//NVIC_EnableIRQ(RTC_IRQn);
-	//printf("IRQ     -- enable RTC_IRQ.\r\n");
-	
-	NVIC_SetPriority(ADC1_0_IRQn, 3);
-	NVIC_EnableIRQ(ADC1_0_IRQn);
-	
-	NVIC_SetPriority(ADC1_1_IRQn, 3);
-	NVIC_EnableIRQ(ADC1_1_IRQn);
-}
+#ifndef EVSYS_H_
+#define EVSYS_H_
+
+void EVSYS_init(void);
+
+
+
+#endif /* EVSYS_H_ */

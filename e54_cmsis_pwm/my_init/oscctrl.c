@@ -28,10 +28,7 @@
 
 /**
  * OSCCTRL: setup XOSC1 with 12 MHz
- * multiplier and current according to table 28-7  
- * start external 32k crystal
- * set RTC to external 32k crystal
- * 
+ * multiplier and current according to table 28-7.
  * if everything is left on default, the controller will start with the
  * internal 48 MHz FDPLL0 oscillator, routed to GLCK0.
  * GLCK0 will provide the clock for MCLK, which clocks the CPU, the bus
