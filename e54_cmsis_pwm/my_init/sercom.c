@@ -33,15 +33,15 @@
 void SERCOM2_init(void) {
 
 	// unmask SERCOM2 in MCLK to enable clock to user interface
-	MCLK->APBBMASK.reg |= MCLK_APBBMASK_SERCOM2;
+	MCLK->APBBMASK.bit.SERCOM2_ = 1;
 	
 	// connect GLCK3 with SERCOM2 module (core and slow clock)
-	GCLK->PCHCTRL[SERCOM2_GCLK_ID_CORE].reg = GCLK_PCHCTRL_GEN_GCLK3 | (1 << GCLK_PCHCTRL_CHEN_Pos);
-	GCLK->PCHCTRL[SERCOM2_GCLK_ID_SLOW].reg = GCLK_PCHCTRL_GEN_GCLK4 | (1 << GCLK_PCHCTRL_CHEN_Pos);
+	GCLK->PCHCTRL[SERCOM2_GCLK_ID_CORE].reg = GCLK_PCHCTRL_GEN_GCLK3 | GCLK_PCHCTRL_CHEN;
+	GCLK->PCHCTRL[SERCOM2_GCLK_ID_SLOW].reg = GCLK_PCHCTRL_GEN_GCLK4 | GCLK_PCHCTRL_CHEN;
 	
 	// do a software reset of the module (write-synchronized)
 	SERCOM2->USART.CTRLA.reg = SERCOM_USART_CTRLA_SWRST;
-	while (SERCOM2->USART.SYNCBUSY.reg & SERCOM_USART_SYNCBUSY_SWRST);
+	while (SERCOM2->USART.SYNCBUSY.bit.SWRST);
 
 	// configure UART mode and bit order
 	SERCOM2->USART.CTRLA.reg = 
@@ -53,28 +53,28 @@ void SERCOM2_init(void) {
 	SERCOM2->USART.CTRLB.reg = 
 		  SERCOM_USART_CTRLB_TXEN
 		| SERCOM_USART_CTRLB_RXEN;
-	while(SERCOM2->USART.SYNCBUSY.reg & SERCOM_USART_SYNCBUSY_CTRLB);
+	while(SERCOM2->USART.SYNCBUSY.bit.CTRLB);
 
 	// setup baud rate
 	SERCOM2->USART.BAUD.reg = CONF_SERCOM_2_USART_BAUD_RATE_REGISTER_VAL;
 
 	// enable UART
 	SERCOM2->USART.CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
-	while(SERCOM2->USART.SYNCBUSY.reg & SERCOM_USART_SYNCBUSY_ENABLE);
+	while(SERCOM2->USART.SYNCBUSY.bit.ENABLE);
 
 }
 
 int32_t SERCOM2_write(const char *const buf, const uint32_t length) {
 	uint32_t offset = 0;
 	
-	while(!(SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_DRE));
+	while(!(SERCOM2->USART.INTFLAG.bit.DRE));
 	
 	do {
 		SERCOM2->USART.DATA.reg = buf[offset];
-		while(!(SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_DRE));
+		while(!(SERCOM2->USART.INTFLAG.bit.DRE));
 	} while (++offset < length);
 	
-	while(!(SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_TXC));
+	while(!(SERCOM2->USART.INTFLAG.bit.TXC));
 	
 	return (int32_t)offset;
 }
@@ -83,7 +83,7 @@ int32_t SERCOM2_read(char *const buf, const uint32_t length) {
 	uint32_t offset = 0;
 	
 	do {
-		while(!(SERCOM2->USART.INTFLAG.reg & SERCOM_USART_INTFLAG_RXC));
+		while(!(SERCOM2->USART.INTFLAG.bit.RXC));
 		buf[offset] = SERCOM2->USART.DATA.reg;
 	} while (++offset < length);
 

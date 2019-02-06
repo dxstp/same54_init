@@ -31,10 +31,10 @@
  * init the PWM module to generate two 16-bit PWMs
  */
 void PWM_init(void) {
-	MCLK->APBDMASK.reg |= MCLK_APBDMASK_TC7;
+	MCLK->APBDMASK.bit.TC7_ = 1;
 	printf("PWM     -- unmask TC7 to enable interface on APBD.\r\n");
 
-	GCLK->PCHCTRL[TC7_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK2 | (1 << GCLK_PCHCTRL_CHEN_Pos);
+	GCLK->PCHCTRL[TC7_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK2 | GCLK_PCHCTRL_CHEN;
 	printf("PWM     -- connect GLCK2 to TC7.\r\n");
 	
 	// do a software reset of the module (write-synchronized)

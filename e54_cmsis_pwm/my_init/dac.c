@@ -54,4 +54,6 @@ void DAC_init(void) {
 	DAC->CTRLA.bit.ENABLE = 1;
 	while(DAC->SYNCBUSY.bit.ENABLE);
 	printf("DAC     -- Enable DAC controller.\r\n");
+	
+	DAC->DATA[0].reg = 0x0800;
 }

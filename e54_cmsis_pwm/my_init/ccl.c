@@ -35,7 +35,7 @@
  */
 void CCL_init(void) {
 
-	MCLK->APBCMASK.reg |= MCLK_APBCMASK_CCL;
+	MCLK->APBCMASK.bit.CCL_ = 1;
 	printf("CCL     -- unmask CCL to enable interface on APBC.\r\n");
 	
 	GCLK->PCHCTRL[CCL_GCLK_ID].reg = GCLK_PCHCTRL_GEN_GCLK3 | GCLK_PCHCTRL_CHEN;

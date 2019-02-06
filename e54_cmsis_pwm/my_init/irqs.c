@@ -28,14 +28,18 @@
 #include "irqs.h"
 
 void IRQ_init(void) {
-	//NVIC_SetPriority(RTC_IRQn, 3);
-	//printf("IRQ     -- set RTC_IRQ to priority 3.\r\n");
-	//NVIC_EnableIRQ(RTC_IRQn);
-	//printf("IRQ     -- enable RTC_IRQ.\r\n");
+	NVIC_SetPriority(RTC_IRQn, 3);
+	printf("IRQ     -- set RTC_IRQ to priority 3.\r\n");
+	NVIC_EnableIRQ(RTC_IRQn);
+	printf("IRQ     -- enable RTC_IRQ.\r\n");
 	
 	NVIC_SetPriority(ADC1_0_IRQn, 3);
+	printf("IRQ     -- set ADC1_0_IRQ to priority 3.\r\n");
 	NVIC_EnableIRQ(ADC1_0_IRQn);
+	printf("IRQ     -- enable ADC1_0_IRQ.\r\n");
 	
 	NVIC_SetPriority(ADC1_1_IRQn, 3);
+	printf("IRQ     -- set ADC1_1_IRQ to priority 3.\r\n");
 	NVIC_EnableIRQ(ADC1_1_IRQn);
+	printf("IRQ     -- enable ADC1_1_IRQ.\r\n");
 }

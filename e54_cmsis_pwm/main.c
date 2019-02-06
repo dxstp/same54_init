@@ -84,7 +84,7 @@ int main(void) {
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
 	
-	DAC->DATA[0].reg = 0x800;
+	
 	__DSB();
 	__WFI();
 	
