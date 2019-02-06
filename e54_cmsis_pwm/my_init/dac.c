@@ -23,17 +23,35 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>	
-#include <stdio.h>
-#include "pm.h"
 
-/** 
- * init the PM module to configure the sleep mode.
- */
-void PM_init(void) {
-	PM->SLEEPCFG.reg = PM_SLEEPCFG_SLEEPMODE_STANDBY;
-	printf("PM      -- configure sleep mode to STANDBY.\r\n");
+#include <sam.h>
+#include <stdio.h>
+#include "dac.h"
+
+void DAC_init(void) {
+	MCLK->APBDMASK.bit.DAC_ = 1;
+	printf("DAC     -- unmask DAC to enable interface on APBD.\r\n");
 	
-	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
-	printf("PM      -- sleep mode ready.\r\n");	
+	GCLK->PCHCTRL[DAC_GCLK_ID].bit.GEN = GCLK_PCHCTRL_GEN_GCLK3_Val;
+	GCLK->PCHCTRL[DAC_GCLK_ID].bit.CHEN = 1;
+	while(!(GCLK->PCHCTRL[DAC_GCLK_ID].bit.CHEN));
+	printf("DAC     -- connect GLCK3 to DAC.\r\n");
+	
+	DAC->CTRLA.bit.SWRST = 1;
+	while(DAC->SYNCBUSY.bit.SWRST);
+	while(DAC->CTRLA.bit.SWRST);
+	printf("DAC     -- issue a software reset.\r\n");
+	
+	DAC->CTRLB.bit.REFSEL = DAC_CTRLB_REFSEL_VREFPU;
+	DAC->DACCTRL[0].bit.CCTRL = DAC_DACCTRL_CCTRL_CC12M_Val;
+	DAC->DACCTRL[0].bit.ENABLE = 1;
+	DAC->DACCTRL[0].bit.REFRESH = 1;
+	DAC->DACCTRL[0].bit.RUNSTDBY = 1;
+	printf("DAC     -- select unbuffered external reference.\r\n");
+	printf("DAC     -- current control to 1MBps mode.\r\n");
+	printf("DAC     -- Enable DAC0 with auto refresh every 30us.\r\n");
+	
+	DAC->CTRLA.bit.ENABLE = 1;
+	while(DAC->SYNCBUSY.bit.ENABLE);
+	printf("DAC     -- Enable DAC controller.\r\n");
 }

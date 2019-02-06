@@ -40,6 +40,7 @@
 #include "my_init/supc.h"
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
+#include "my_init/dac.h"
 #include "utils/print.h"
 
 
@@ -84,18 +85,24 @@ int main(void) {
 	SUPC_init();
 	PM_init();
 	IRQ_init();
+	DAC_init();
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
-
+	
+	DAC->DATA[0].reg = 0x800;
+	__DSB();
+	__WFI();
+	
 	while (1) {
-		printf("Going into standby now, RTC counter = %010u.\r\n\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
-		__DSB();
-		__WFI();
-		printf("Woke up from standby,   RTC counter = %010u.\r\n", (unsigned int) RTC->MODE0.COUNT.reg);
+	
 	}
 }
 
 void RTC_Handler(void) {
 	RTC->MODE0.INTFLAG.reg = RTC_MODE0_INTFLAG_CMP0;
 	NVIC_ClearPendingIRQ(RTC_IRQn);
+}
+
+void HardFault_Handler(void) {
+	while(1);
 }

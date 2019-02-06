@@ -180,6 +180,12 @@
     <Compile Include="my_init\ccl.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\dac.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\dac.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\dpll.c">
       <SubType>compile</SubType>
     </Compile>

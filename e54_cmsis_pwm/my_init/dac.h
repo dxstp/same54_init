@@ -23,17 +23,13 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>	
-#include <stdio.h>
-#include "pm.h"
 
-/** 
- * init the PM module to configure the sleep mode.
- */
-void PM_init(void) {
-	PM->SLEEPCFG.reg = PM_SLEEPCFG_SLEEPMODE_STANDBY;
-	printf("PM      -- configure sleep mode to STANDBY.\r\n");
-	
-	while (!(PM->INTFLAG.reg == PM_INTFLAG_SLEEPRDY));
-	printf("PM      -- sleep mode ready.\r\n");	
-}
+#ifndef DAC_H_
+#define DAC_H_
+
+
+void DAC_init(void);
+
+
+
+#endif /* DAC_H_ */
