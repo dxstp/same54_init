@@ -42,6 +42,7 @@
 #include "my_init/irqs.h"
 #include "my_init/dac.h"
 #include "my_init/adc.h"
+#include "my_init/ac.h"
 #include "utils/print.h"
 
 

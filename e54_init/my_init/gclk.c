@@ -23,7 +23,7 @@
  */
 // DOM-IGNORE-END
 
-#include <same54.h>
+#include <sam.h>
 #include "gclk.h"
 
 /**
