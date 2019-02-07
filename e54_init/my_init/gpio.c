@@ -141,4 +141,12 @@ void GPIO_init(void) {
 		| PORT_WRCONFIG_WRPINCFG
 		| PORT_WRCONFIG_PMUXEN
 		| ((1 << 3) & 0xffff);
+		
+	// enable Comp input on PA06
+	PORT->Group[GPIO_PORTA].WRCONFIG.reg =
+		  PORT_WRCONFIG_PMUX(MUX_PA06B_AC_AIN2)
+		| PORT_WRCONFIG_WRPINCFG
+		| PORT_WRCONFIG_WRPMUX
+		| PORT_WRCONFIG_PMUXEN
+		| ((1 << 6) & 0xffff);
 }

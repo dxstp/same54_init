@@ -198,6 +198,12 @@
     <Compile Include="my_init\dpll.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\evsys.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\evsys.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\gclk.c">
       <SubType>compile</SubType>
     </Compile>

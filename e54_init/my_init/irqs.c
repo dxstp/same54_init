@@ -42,4 +42,9 @@ void IRQ_init(void) {
 	printf("IRQ     -- set ADC1_1_IRQ to priority 3.\r\n");
 	NVIC_EnableIRQ(ADC1_1_IRQn);
 	printf("IRQ     -- enable ADC1_1_IRQ.\r\n");
+	
+	NVIC_SetPriority(AC_IRQn, 3);
+	printf("IRQ     -- set AC_IRQ to priority 3.\r\n");
+	NVIC_EnableIRQ(AC_IRQn);
+	printf("IRQ     -- enable AC_IRQ.\r\n");
 }

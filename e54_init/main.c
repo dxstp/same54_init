@@ -40,10 +40,12 @@
 #include "my_init/supc.h"
 #include "my_init/pm.h"
 #include "my_init/irqs.h"
+#include "my_init/evsys.h"
 #include "my_init/dac.h"
 #include "my_init/adc.h"
 #include "my_init/ac.h"
 #include "utils/print.h"
+#include "utils/delay.h"
 
 
 /** 
@@ -79,8 +81,10 @@ int main(void) {
 	SUPC_init();
 	PM_init();
 	IRQ_init();
+	EVSYS_init();
 	DAC_init();
 	ADC_init();
+	AC_init();
 	
 	
 	printf("\r\n-- Finished initialization, starting app.\r\n");
@@ -101,4 +105,25 @@ void RTC_Handler(void) {
 
 void HardFault_Handler(void) {
 	while(1);
+}
+
+void ADC1_0_Handler(void) {
+	ADC1->INTFLAG.reg = ADC_INTFLAG_WINMON;
+	NVIC_ClearPendingIRQ(ADC1_0_IRQn);
+	//while(1);
+	delay_cycles(1000);
+}
+
+void ADC1_1_Handler(void) {
+	ADC1->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+	NVIC_ClearPendingIRQ(ADC1_1_IRQn);
+	//while(1);
+	delay_cycles(1000);
+}
+
+void AC_Handler(void) {
+	AC->INTFLAG.reg = AC_INTFLAG_COMP0;
+	NVIC_ClearPendingIRQ(AC_IRQn);
+	//while(1);
+	delay_cycles(1000);
 }
