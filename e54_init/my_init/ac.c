@@ -23,7 +23,7 @@
  */
 // DOM-IGNORE-END
 
-#include <sam.h>
+#include "same54.h"
 #include "ac.h"
 
 void AC_init(void) {
@@ -37,7 +37,7 @@ void AC_init(void) {
 	
 	AC->SCALER[0].reg = 0x1f;
 	
-	AC->CALIB.reg = AC_CALIB_BIAS0((AC_FUSES_BIAS0_ADDR & AC_FUSES_BIAS0_Msk) >> AC_FUSES_BIAS0_Pos);
+	AC->CALIB.reg = AC_CALIB_BIAS0((*(uint32_t *)AC_FUSES_BIAS0_ADDR & AC_FUSES_BIAS0_Msk) >> AC_FUSES_BIAS0_Pos);
 	
 	AC->COMPCTRL[0].reg = 
 		    AC_COMPCTRL_OUT_OFF
