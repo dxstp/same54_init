@@ -29,7 +29,7 @@
 
 static inline uint32_t _get_cycles_for_ms_internal(const uint16_t ms, const uint32_t freq, const uint8_t power);
 static uint32_t _get_cycles_for_ms(const uint16_t ms);
-static void _delay_cycles(void *const hw, uint32_t cycles);
+static void _delay_cycles(uint32_t cycles);
 
 #if CONF_CPU_FREQUENCY < 1000
 #define CPU_FREQ_POWER 3
@@ -72,22 +72,23 @@ static uint32_t _get_cycles_for_ms(const uint16_t ms)
 	return _get_cycles_for_ms_internal(ms, CONF_CPU_FREQUENCY, CPU_FREQ_POWER);
 }
 
-static void _delay_cycles(void *const hw, uint32_t cycles)
+__attribute__((section(".ramfunc")))
+static void _delay_cycles(uint32_t cycles)
 {
-	(void)hw;
-	(void)cycles;
+	cycles /= 4;
 
-	__asm(".syntax unified\n"
-	"__delay:\n"
-	"subs r1, r1, #1\n"
-	"bhi __delay\n"
-	".syntax divided");
+	asm volatile (
+	"1: sub %[cycles], %[cycles], #1 \n"
+	" nop \n"
+	" bne 1b \n"
+	: [cycles] "+l"(cycles)
+	);
 }
 
 void delay_ms(const uint16_t ms) {
-	_delay_cycles(0x0, _get_cycles_for_ms(ms));
+	_delay_cycles(_get_cycles_for_ms(ms));
 }
 
 void delay_cycles(const uint32_t cycles) {
-	_delay_cycles(0x0, cycles);
+	_delay_cycles(cycles);
 }

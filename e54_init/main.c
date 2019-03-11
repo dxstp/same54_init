@@ -67,6 +67,7 @@ int main(void) {
 	// at this point the controller is able to output debug messages
 	printf("\r\n-- SAME54 Xplained Pro boot example --\r\n");
 	printf("Built "__TIME__" at "__DATE__"\r\n\r\n");
+	printf("NVMCTRL -- set wait states to manual and 5 WS.\r\n");
 	printf("OSCCTRL -- XOSC1 (12 MHz) running.\r\n");
 	printf("GCLK0   -- connected to DPLL0 (120 MHz).\r\n");
 	printf("GCLK1   -- connected to DPLL1 (200 MHz).\r\n");
