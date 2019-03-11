@@ -29,6 +29,7 @@
 
 #include <sam.h>
 #include <stdio.h>
+#include "my_init/nvmctrl.h"
 #include "my_init/oscctrl.h"
 #include "my_init/gclk.h"
 #include "my_init/dpll.h"
@@ -52,6 +53,7 @@
  * this examples is designed for the ATSAM E54 Xplained Pro board.
  */
 int main(void) {
+	 NVMCTRL_init();
 	 OSCCTRL_init();
 	 GCLK_init();
 	 SERCOM2_init();

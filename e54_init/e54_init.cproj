@@ -222,6 +222,12 @@
     <Compile Include="my_init\irqs.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_init\nvmctrl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_init\nvmctrl.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_init\oscctrl.c">
       <SubType>compile</SubType>
     </Compile>
