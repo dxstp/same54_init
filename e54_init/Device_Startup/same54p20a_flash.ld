@@ -79,6 +79,8 @@ SECTIONS
         KEEP (*(EXCLUDE_FILE (*crtend.o) .ctors))
         KEEP (*(SORT(.ctors.*)))
         KEEP (*crtend.o(.ctors))
+		KEEP (*crtbegin.o(*))
+		KEEP (*crtend.o(*))
 
         . = ALIGN(4);
         KEEP(*(.fini))
