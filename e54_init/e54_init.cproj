@@ -159,6 +159,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Device_Startup\nvm_userrow.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Device_Startup\startup_same54.c">
       <SubType>compile</SubType>
     </Compile>
@@ -284,9 +287,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Device_Startup\same54p20a_flash.ld">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="Device_Startup\same54p20a_sram.ld">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>
