@@ -78,10 +78,11 @@ static void _delay_cycles(uint32_t cycles)
 	cycles /= 4;
 
 	asm volatile (
-	"1: sub %[cycles], %[cycles], #1 \n"
-	" nop \n"
-	" bne 1b \n"
-	: [cycles] "+l"(cycles)
+	"__delay:\n"
+	"subs %[cycles], %[cycles], #1 \n"
+	"nop \n"
+	"bne __delay\n"
+	:[cycles] "+l"(cycles)
 	);
 }
 
